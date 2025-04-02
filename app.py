@@ -11,34 +11,36 @@ st.title('PCA Statistics Analysis :church:', help = 'All data is from [The PCA](
 st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
 
 
-st.markdown('''
-    ##### Welcome to the PCA Statistics Analysis App!
-    If you would like to reach out to the team, please contact us [here](https://www.disciplytics.com/contact/).
-
-    While you can take a tour of the analysis by clicking through the app, you can also read the technical report below.
-
-    ##### Title page
+# click to learn more expander
+with st.expander("2024 PCA Statistics Technical Report"):
+    st.markdown('''
+        ##### Welcome to the PCA Statistics Analysis App!
+        If you would like to reach out to the team, please contact us [here](https://www.disciplytics.com/contact/).
     
-    ##### Acknowledgements
+        While you can take a tour of the analysis by clicking through the app, you can also read the technical report below.
     
-    ##### Summary
+        ##### Title page
+        
+        ##### Acknowledgements
+        
+        ##### Summary
+        
+        ##### Table of Contents
+        
+        ##### Introduction/Terms of Reference/Scope
+        
+        ##### Procedure
+        
+        ##### Findings
+        
+        ##### Conclusions
+        
+        ##### Recommendations
+        
+        ##### References/Bibliography
+        
+        ##### Appendices
     
-    ##### Table of Contents
     
-    ##### Introduction/Terms of Reference/Scope
-    
-    ##### Procedure
-    
-    ##### Findings
-    
-    ##### Conclusions
-    
-    ##### Recommendations
-    
-    ##### References/Bibliography
-    
-    ##### Appendices
-
-
-    '''
-)
+        '''
+    )
