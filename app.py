@@ -15,6 +15,30 @@ st.markdown('''
     ##### Welcome to the PCA Statistics Analysis App!
     If you would like to reach out to the team, please contact us [here](https://www.disciplytics.com/contact/).
 
+    While you can take a tour of the analysis by clicking through the app, you can also read the technical report below.
+
+    ##### Title page
+    
+    ##### Acknowledgements
+    
+    ##### Summary
+    
+    ##### Table of Contents
+    
+    ##### Introduction/Terms of Reference/Scope
+    
+    ##### Procedure
+    
+    ##### Findings
+    
+    ##### Conclusions
+    
+    ##### Recommendations
+    
+    ##### References/Bibliography
+    
+    ##### Appendices
+
 
     '''
 )
