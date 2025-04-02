@@ -12,8 +12,9 @@ st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.di
 
 
 st.markdown('''
-    ### Welcome to the PCA Statistics Analysis App!
+    ##### Welcome to the PCA Statistics Analysis App!
     If you would like to reach out to the team, please contact us [here](https://www.disciplytics.com/contact/).
+
 
     '''
 )
