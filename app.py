@@ -17,7 +17,7 @@ st.markdown('''
         to provide the PCA with community data from the American Community Survey (ACS), 
         and to use advanced analytics to explain changes in key metrics.
 
-        At [Disciplytics, LLC](https://www.disciplytics.com/), we are looking to serve the Church through data analytics and AI. 
+        At [Disciplytics, LLC](https://www.disciplytics.com/), we serve the Church using data analytics and AI. 
         
         If you would like to reach out to the team, please contact us [here](https://www.disciplytics.com/contact/).
     
