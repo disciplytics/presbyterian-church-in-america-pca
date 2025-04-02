@@ -9,3 +9,11 @@ st.set_page_config(
 # title
 st.title('PCA Statistics Analysis :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
 st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
+
+
+st.markdown('''
+    ### Welcome to the PCA Statistics Analysis App!
+    If you would like to reach out to the team, please contact us [here](https://www.disciplytics.com/contact/).
+
+    '''
+)
