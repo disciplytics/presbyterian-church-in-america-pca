@@ -13,6 +13,12 @@ st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.di
 
 st.markdown('''
         ##### Welcome to the PCA Statistics Analysis App!
+        The goal of this app is to report the PCA statistics in a meaningful way, 
+        to provide the PCA with community data from the American Community Survey (ACS), 
+        and to use advanced analytics to explain changes in key metrics.
+
+        At [Disciplytics, LLC](https://www.disciplytics.com/), we are looking to serve the Church through data analytics and AI. 
+        
         If you would like to reach out to the team, please contact us [here](https://www.disciplytics.com/contact/).
     
         While you can take a tour of the analysis by clicking through the app, you can also read the technical reports below.
