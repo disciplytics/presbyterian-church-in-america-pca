@@ -8,7 +8,7 @@ home_page = st.Page(
 )
 
 report_page = st.Page(
-  'pages/tech_reports/report_2024.py', 
+  'pages/tech_reports.py', 
   title = 'PCA Technical Reports', 
   icon=":material/lab_profile:", 
   default=False
