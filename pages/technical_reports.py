@@ -11,7 +11,7 @@ st.image("https://media.licdn.com/dms/image/v2/D4E16AQGCrog5mV8nBQ/profile-displ
         width = 250)
 
 # title
-st.title('PCA Technical Reports :church:')
+st.title('PCA Technical Reports :church:', help='This page offers technical breakdowns of the data and findings by [Disciplyics](https://www.disciplytics.com/). Reports are indexed by Stat Year.')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
 
 with st.expander('2024 PCA Technical Report'):
