@@ -8,14 +8,14 @@ home_page = st.Page(
 )
 
 techreport_page = st.Page(
-  'pages/tech_reports.py', 
+  'pages/technical_reports.py', 
   title = 'PCA Technical Reports', 
   icon=":material/lab_profile:", 
   default=False
 )
 
 dashreport_page = st.Page(
-  'pages/dash_reports.py', 
+  'pages/dashboards.py', 
   title = 'PCA Dashboard Reports', 
   icon=":material/analytics:", 
   default=False
