@@ -8,7 +8,7 @@ home_page = st.Page(
 )
 
 report_2024_page = st.Page(
-  'pages/report_2024.py', 
+  'pages/tech_reports/report_2024.py', 
   title = 'Technical Reports', 
   icon=":material/lab_profile:", 
   default=False
