@@ -15,6 +15,11 @@ st.title('PCA Dashboards :church:')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
 
 # connect to snowflake
-sql = 'SELECT * FROM PCA_STATISTICS;'
-conn = st.connection("snowflake")
-st.dataframe(conn.query(sql, ttl=0))
+@st.cache_data
+def load_stats_data():
+    sql = 'SELECT * FROM PCA_STATISTICS;'
+    conn = st.connection("snowflake")
+    return conn.query(sql, ttl=0, show_spinner = False)
+stats_df = load_stats_data()
+
+st.dataframe(stats_df)
