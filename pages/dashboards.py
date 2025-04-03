@@ -13,3 +13,8 @@ st.image("https://media.licdn.com/dms/image/v2/D4E16AQGCrog5mV8nBQ/profile-displ
 # title
 st.title('PCA Dashboards :church:')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
+
+# connect to snowflake
+sql = 'SELECT * FROM PCA_STATISTICS;'
+conn = st.connection("snowflake")
+st.dataframe(conn.query(sql, ttl=0))
