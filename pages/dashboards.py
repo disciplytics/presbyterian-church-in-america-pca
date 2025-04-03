@@ -13,7 +13,7 @@ st.image("https://media.licdn.com/dms/image/v2/D4E16AQGCrog5mV8nBQ/profile-displ
 # title
 st.title('PCA Dashboards :church:')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
-
+st.write('This page offers visualizations of the PCA Statistics for improved reporting')
 # connect to snowflake
 @st.cache_data
 def load_stats_data():
