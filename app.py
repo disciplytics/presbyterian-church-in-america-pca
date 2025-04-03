@@ -19,6 +19,7 @@ pg = st.navigation(
         {
             "": [home_page],
             "Technical Reports": [report_page],
+            "Data App": [],
           
         }
     )
