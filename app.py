@@ -18,8 +18,7 @@ report_page = st.Page(
 pg = st.navigation(
         {
             "": [home_page],
-            "Technical Reports": [report_page],
-            "Data App": [],
+            "PCA Reports": [report_page],
           
         }
     )
