@@ -7,9 +7,9 @@ home_page = st.Page(
   default=True
 )
 
-report_2024_page = st.Page(
+report_page = st.Page(
   'pages/tech_reports/report_2024.py', 
-  title = 'Technical Reports', 
+  title = 'PCA Technical Reports', 
   icon=":material/lab_profile:", 
   default=False
 )
@@ -18,7 +18,7 @@ report_2024_page = st.Page(
 pg = st.navigation(
         {
             "": [home_page],
-            "Technical Reports": [report_2024_page],
+            "Technical Reports": [report_page],
           
         }
     )
