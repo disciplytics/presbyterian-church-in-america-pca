@@ -1,7 +1,7 @@
 import streamlit as st
 # set page configs
 st.set_page_config(
-    page_title="PCA Technical Reports",
+    page_title="PCA Insight Reports",
     layout="wide",
     page_icon = 'https://jimdo-storage.freetls.fastly.net/image/446612637/7c401e7a-6b6d-4ec8-84a5-4ab2cae82c9e.png?quality=80,90&auto=webp&disable=upscale&width=1024&height=576&trim=0,0,0,0',
 )
@@ -11,7 +11,7 @@ st.image("https://media.licdn.com/dms/image/v2/D4E16AQGCrog5mV8nBQ/profile-displ
         width = 250)
 
 # title
-st.title('PCA Technical Reports', help='This page offers technical breakdowns of the data and findings by [Disciplytics](https://www.disciplytics.com/). Reports are indexed by Stat Year.')
+st.title('PCA Insight Reports', help='This page offers technical breakdowns of the data and findings by [Disciplytics](https://www.disciplytics.com/). Reports are indexed by Stat Year.')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
 
 with st.expander('2024 PCA Technical Report'):
