@@ -1,4 +1,5 @@
 import streamlit as st
+from numpy import sort
 # set page configs
 st.set_page_config(
     page_title="PCA Dashboards",
@@ -25,7 +26,7 @@ stats_df = load_stats_data()
 
 
 # get filter options
-state_options = stats_df['STATE'].fillna('No State Reported').unique().tolist().sort()
+state_options = sort(stats_df['STATE'].fillna('No State Reported').unique())
 
 state_sel = st.multiselect('Select a State', state_options, state_options)
 st.write(state_sel)
