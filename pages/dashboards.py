@@ -38,7 +38,7 @@ if len(state_sel) > 0:
     city_sel = st.multiselect('Select a City', city_options)
     st.write(city_sel)
     
-if len(city_sel) > 0:
+if city_sel:
     church_sel = st.multiselect('Select a Church', church_options)
     st.write(church_sel)
     
