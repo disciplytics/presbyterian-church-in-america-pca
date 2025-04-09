@@ -27,7 +27,19 @@ stats_df = load_stats_data()
 
 # get filter options
 state_options = sort(stats_df['STATE'].fillna('No State Reported').unique())
+city_options = sort(stats_df['CITY'].fillna('No City Reported').unique())
+church_options = sort(stats_df['CHURCH'].fillna('No Church Reported').unique())
 
+# conditionally show filters if selections are made
 state_sel = st.multiselect('Select a State', state_options)
 st.write(state_sel)
+
+if len(state_sel) > 0:
+    city_sel = st.multiselect('Select a City', city_options)
+    st.write(city_sel)
+    
+if len(city_sel) > 0:
+    church_sel = st.multiselect('Select a Church', church_options)
+    st.write(church_sel)
+    
 st.dataframe(stats_df)
