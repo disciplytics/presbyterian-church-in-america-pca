@@ -34,8 +34,8 @@ church_options = sort(stats_df['CHURCH'].fillna('No Church Reported').unique())
 state_sel = st.multiselect('Select a State', state_options)
 st.write(state_sel)
 
-state_sel = None
 city_sel = None
+church_sel = None
 
 if state_sel:
     city_sel = st.multiselect('Select a City', city_options)
