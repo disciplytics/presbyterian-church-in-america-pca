@@ -28,6 +28,6 @@ stats_df = load_stats_data()
 # get filter options
 state_options = sort(stats_df['STATE'].fillna('No State Reported').unique())
 
-state_sel = st.multiselect('Select a State', state_options, state_options)
+state_sel = st.multiselect('Select a State', state_options)
 st.write(state_sel)
 st.dataframe(stats_df)
