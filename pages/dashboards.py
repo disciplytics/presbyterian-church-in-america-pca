@@ -27,7 +27,7 @@ def load_stats_data():
 stats_df = load_stats_data()
 # provide option to query data
 try:
-    report_df = st.dataframe(query_data(stats_df))
+    report_df = query_data(stats_df)
 except:
     report_df = stats_df.copy()
 
