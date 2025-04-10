@@ -17,7 +17,7 @@ dashreport_page = st.Page(
 community_insight_page = st.Page(
   'pages/insight_reports.py', 
   title = 'Community Insight Reports', 
-  icon=":material/lab_profile:", 
+  icon=":material/communities:", 
   default=False
 )
 
