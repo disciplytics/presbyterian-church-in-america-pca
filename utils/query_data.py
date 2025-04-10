@@ -24,6 +24,7 @@ def query_data(df):
         filtered_df = df[(df['STATE'].isin(state_sel)) & (df['CITY'].isin(city_sel))]
         church_options = sort(filtered_df['CHURCH'].unique())
         church_sel = multiselect('Select a Church', church_options)
-        filtered_df = df[(df['STATE'].isin(state_sel)) & (df['CITY'].isin(city_sel)) & (df['CHURCH'].isin(church_sel))]
+        if len(church_sel) > 0: 
+            filtered_df = df[(df['STATE'].isin(state_sel)) & (df['CITY'].isin(city_sel)) & (df['CHURCH'].isin(church_sel))]
 
     return filtered_df
