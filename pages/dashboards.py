@@ -2,7 +2,7 @@ import streamlit as st
 from page_components.utils.query_data import query_data
 from page_components.analyses.membership import membership
 from page_components.analyses.general_data import general_data
-
+from page_components.analyses.christian_schools import christian_schools
 # set page configs
 st.set_page_config(
     page_title="PCA Dashboards",
