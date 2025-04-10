@@ -13,7 +13,7 @@ def contributions(df):
 
 
                             
-  over_df = df[['Year', 'TotalContrib', 'OtherIncome', 'TotalChurchIncome']].melt(id_vars=['Year'], var_name='Metric', value_name='Dollars')
+  over_df = df[['Year', 'TotalContrib', 'TotalChurchIncome']].melt(id_vars=['Year'], var_name='Metric', value_name='Dollars')
   contrib_df = df[['Year', 'TithesOfferings', 'SpecialCauses', 'BuildingFindOffering', 'OtherContrib', 'OtherIncome']].melt(id_vars=['Year'], var_name='Metric', value_name='Dollars')
 
   st.subheader('Church Income Trends')
