@@ -13,3 +13,15 @@ st.image("https://media.licdn.com/dms/image/v2/D4E16AQGCrog5mV8nBQ/profile-displ
 # title
 st.title('Community Insight Reports', help='This page offers community insights for each church. Great for ministry identification and evaluation.')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/) and community data is generated from the [American Community Survey](https://www.census.gov/programs-surveys/acs/about.html)')
+
+
+# connect to snowflake
+@st.cache_data(show_spinner=False)
+def load_acs_data():
+    sql = 'SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA LIMIT 100;'
+    conn = st.connection("snowflake")
+    return conn.query(sql, ttl=0, show_spinner = False)
+# load the data
+acs_df = load_acs_data()
+
+st.dataframe(acs_df)
