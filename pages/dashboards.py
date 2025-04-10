@@ -33,3 +33,7 @@ except:
 
 # begin data viz
 mem_tab, gen_tab, school_tab, contrib_tab, disburs_tab = st.tabs(['Membership', 'General Data', 'Christian Schools', 'Contributions', 'Disbursements'])
+
+with mem_tab:
+    membership(report_df)
+    
