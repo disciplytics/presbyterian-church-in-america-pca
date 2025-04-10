@@ -27,4 +27,7 @@ stats_df = load_stats_data()
 try:
     report_df = st.dataframe(query_data(stats_df))
 except:
-    st.dataframe(stats_df)
+    report_df = stats_df.copy()
+
+# begin data viz
+mem_tab, gen_tab, school_tab, contrib_tab, disburs_tab = st.tabs(['Membership', 'General Data', 'Christian Schools', 'Contributions', 'Disbursements'])
