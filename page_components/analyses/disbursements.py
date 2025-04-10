@@ -19,7 +19,8 @@ def disbursements(df):
   }
                 )
 
-
+  df['Year'] = df['Year'].astype(str)
+  
   totals_df = df[['Year', 'TotalBenevolentDisbursements', 'TotalAllDisbursements']].melt(id_vars=['Year'], var_name='Metric', value_name='Dollars')
   gen_assembly_df = df[['Year', 'Administration', 'DiscipleshipMin', 'MissionToNAAmerica', 'MissionToTheWorld', 'CovenantCollege', 'CovenantSeminary', 'Ridgehaven', 'ReformedUniversityMinistries', 'PCAOfficeBuilding', 'Other']].melt(id_vars=['Year'], var_name='Metric', value_name='Dollars')
   pres_df = df[['Year', 'PresbyteryOperation', 'ChristianEducation', 'HomeMissions', 'InternationalMissions', 'OtherPresbyteryMin']].melt(id_vars=['Year'], var_name='Metric', value_name='Dollars')
@@ -30,7 +31,7 @@ def disbursements(df):
   TotalAllDisbursements = df.groupby(['Year'])['TotalAllDisbursements'].sum().reset_index()
 
   pct_df = pd.merge(TotalBenevolentDisbursements, TotalAllDisbursements, on = 'Year', how = 'left')
-  pct_df['TotalBenevolentDisbursementsPercentage'] = np.round(pct_df['TotalBenevolentDisbursements'] / pct_df['TotalAllDisbursements'], 2)/100
+  pct_df['TotalBenevolentDisbursementsPercentage'] = np.round(pct_df['TotalBenevolentDisbursements'] / pct_df['TotalAllDisbursements'], 2) * 100
 
 
   TOTALCONTRIB = df.groupby(['Year'])['TOTALCONTRIB'].sum().reset_index()
