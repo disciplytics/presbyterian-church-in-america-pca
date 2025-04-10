@@ -18,7 +18,7 @@ st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplyti
 # connect to snowflake
 @st.cache_data(show_spinner=False)
 def load_acs_data():
-    sql = 'SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA LIMIT 100;'
+    sql = 'SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE CENSUS_SUBJECT = "Poverty Status";'
     conn = st.connection("snowflake")
     return conn.query(sql, ttl=0, show_spinner = False)
 # load the data
