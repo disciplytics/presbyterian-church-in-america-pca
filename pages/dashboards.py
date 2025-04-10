@@ -55,8 +55,7 @@ def query_data(df):
         st.write(church_sel)
 
     return filtered_df
-filtered_df = query_data(stats_df)   
 
-st.dataframe(filtered_df)
+st.dataframe(query_data(stats_df))
 st.dataframe(stats_df)
 
