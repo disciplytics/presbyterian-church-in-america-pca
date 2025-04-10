@@ -1,5 +1,5 @@
 import streamlit as st
-from numpy import sort
+
 # set page configs
 st.set_page_config(
     page_title="PCA Dashboards",
@@ -27,6 +27,7 @@ stats_df = load_stats_data()
 # query data
 
 def query_data(df):
+    from numpy import sort
     df['STATE']=df['STATE'].fillna('No State Reported')
     df['CITY']=df['CITY'].fillna('No City Reported')
     df['CHURCH']=df['CHURCH'].fillna('No Church Reported')
