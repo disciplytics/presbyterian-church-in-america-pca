@@ -7,17 +7,17 @@ home_page = st.Page(
   default=True
 )
 
-community_insight_page = st.Page(
-  'pages/insight_reports.py', 
-  title = 'PCA Insight Reports', 
-  icon=":material/lab_profile:", 
-  default=False
-)
-
 dashreport_page = st.Page(
   'pages/dashboards.py', 
   title = 'PCA Dashboard Reports', 
   icon=":material/analytics:", 
+  default=False
+)
+
+community_insight_page = st.Page(
+  'pages/insight_reports.py', 
+  title = 'Community Insight Reports', 
+  icon=":material/lab_profile:", 
   default=False
 )
 
