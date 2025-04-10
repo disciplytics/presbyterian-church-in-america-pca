@@ -25,6 +25,6 @@ st.markdown('''
         
         If you would like to reach out to the team, please contact us [here](https://www.disciplytics.com/contact/).
     
-        While you can take a tour of the analysis by clicking through the app, you can also read the technical reports.
+        Happy digging!
         '''
            )
