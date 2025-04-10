@@ -3,6 +3,9 @@ from page_components.utils.query_data import query_data
 from page_components.analyses.membership import membership
 from page_components.analyses.general_data import general_data
 from page_components.analyses.christian_schools import christian_schools
+from page_components.analyses.contributions import contributions
+from page_components.analyses.disbursements import disbursements
+
 # set page configs
 st.set_page_config(
     page_title="PCA Dashboards",
@@ -42,6 +45,6 @@ with gen_tab:
 with school_tab:
     christian_schools(report_df)
 with contrib_tab:
-    membership(report_df)
+    contributions(report_df)
 with disburs_tab:
-    membership(report_df)
+    disbursements(report_df)
