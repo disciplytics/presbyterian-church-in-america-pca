@@ -7,7 +7,7 @@ home_page = st.Page(
   default=True
 )
 
-insightreport_page = st.Page(
+community_insight_page = st.Page(
   'pages/insight_reports.py', 
   title = 'PCA Insight Reports', 
   icon=":material/lab_profile:", 
@@ -25,7 +25,7 @@ dashreport_page = st.Page(
 pg = st.navigation(
         {
             "": [home_page],
-            "PCA Reports": [insightreport_page, dashreport_page],
+            "Data Reports": [dashreport_page, community_insight_page],
           
         }
     )
