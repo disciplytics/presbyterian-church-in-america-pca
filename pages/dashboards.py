@@ -20,7 +20,7 @@ st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplyti
 # connect to snowflake
 @st.cache_data(show_spinner=False)
 def load_stats_data():
-    sql = 'SELECT * FROM PCA_STATISTICS;'
+    sql = 'SELECT * FROM PCA_STATISTICS WHERE YEAR >= 2017;'
     conn = st.connection("snowflake")
     return conn.query(sql, ttl=0, show_spinner = False)
 # load the data
