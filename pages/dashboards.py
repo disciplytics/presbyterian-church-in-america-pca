@@ -1,6 +1,7 @@
 import streamlit as st
 from page_components.utils.query_data import query_data
 from page_components.analyses.membership import membership
+from page_components.analyses.general_data import general_data
 
 # set page configs
 st.set_page_config(
@@ -36,4 +37,11 @@ mem_tab, gen_tab, school_tab, contrib_tab, disburs_tab = st.tabs(['Membership', 
 
 with mem_tab:
     membership(report_df)
-    
+with gen_tab:
+    general_data(report_df)
+with school_tab:
+    membership(report_df)
+with contrib_tab:
+    membership(report_df)
+with disburs_tab:
+    membership(report_df)
