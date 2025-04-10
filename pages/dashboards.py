@@ -21,10 +21,10 @@ def load_stats_data():
     sql = 'SELECT * FROM PCA_STATISTICS;'
     conn = st.connection("snowflake")
     return conn.query(sql, ttl=0, show_spinner = False)
-
+# load the data
 stats_df = load_stats_data()
-
-# query data
-st.dataframe(query_data(stats_df))
-st.dataframe(stats_df)
-
+# provide option to query data
+try:
+    report_df = st.dataframe(query_data(stats_df))
+except:
+    st.dataframe(stats_df)
