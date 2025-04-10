@@ -40,7 +40,7 @@ with mem_tab:
 with gen_tab:
     general_data(report_df)
 with school_tab:
-    membership(report_df)
+    christian_schools(report_df)
 with contrib_tab:
     membership(report_df)
 with disburs_tab:
