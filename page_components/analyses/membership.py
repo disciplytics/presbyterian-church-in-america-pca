@@ -4,7 +4,7 @@ def membership(df):
 
   df['Total Members'] = df['COMM'] + df['NONCOMM']
 
-  df = df.rename(columns = {'COMM': 'Comm', 'NONCOMM': 'NonComm, 'YEAR', 'Year'})
+  df = df.rename(columns = {'COMM': 'Comm', 'NONCOMM': 'NonComm', 'YEAR', 'Year'})
                             
   df = df[['Year', 'Comm', 'NonComm', 'Total Members']].melt(id_vars=['Year'], var_name='Metric', value_name='Count')
 
