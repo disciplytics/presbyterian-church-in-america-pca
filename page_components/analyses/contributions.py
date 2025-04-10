@@ -4,27 +4,20 @@ def contributions(df):
   
   df = df.rename(columns = {
           'YEAR': 'Year',
-          'ADULTBAPT': 'AdultBapt', 'INFANTBAPT': 'InfantBapt', 
-          'RULINGELDERS': 'RulingElders', 'DEACONS': 'Deacons', 
-          'FAMILYUNITS': 'FamilyUnits', 
-          'SUNDAYSCHOOLATTEND': 'SundaySchoolAttend', 'SMALLGROUPATTEND': 'SmallGroupAttend', 'ESTMORNATTEND': 'EstMornAttend',
+          'TITHESOFFERINGS': 'TithesOfferings', 'SPECIALCAUSES': 'SpecialCauses', 
+          'BUILDINGFUNDOFFERING': 'BuildingFindOffering', 'OTHERCONTRIB': 'OtherContrib', 
+          'TOTALCONTRIB': 'TotalContrib', 
+          'OTHERINCOME': 'OtherIncome', 'TOTALCHURCHINCOME': 'TotalChurchIncome',
   }
                 )
 
+
                             
-  bapt_df = df[['Year', 'AdultBapt', 'InfantBapt']].melt(id_vars=['Year'], var_name='Metric', value_name='Count')
-  off_df = df[['Year', 'RulingElders', 'Deacons']].melt(id_vars=['Year'], var_name='Metric', value_name='Count')
-  fam_df = df[['Year', 'FamilyUnits']].melt(id_vars=['Year'], var_name='Metric', value_name='Count')
-  attend_df = df[['Year', 'SundaySchoolAttend', 'SmallGroupAttend', 'EstMornAttend']].melt(id_vars=['Year'], var_name='Metric', value_name='Count')
+  over_df = df[['Year', 'TotalContrib', 'OtherIncome', 'TotalChurchIncome']].melt(id_vars=['Year'], var_name='Metric', value_name='Dollars')
+  contrib_df = df[['Year', 'TithesOfferings', 'SpecialCauses', 'BuildingFindOffering', 'OtherContrib', 'OtherIncome']].melt(id_vars=['Year'], var_name='Metric', value_name='Dollars')
 
-  st.subheader('Baptism Trends')
-  st.bar_chart(bapt_df.groupby(['Year', 'Metric'])['Count'].sum().reset_index(), x = 'Year', y = 'Count', color = 'Metric', stack = False)
+  st.subheader('Church Income Trends')
+  st.bar_chart(over_df.groupby(['Year', 'Metric'])['Dollars'].sum().reset_index(), x = 'Year', y = 'Dollars', color = 'Metric', stack = False)
 
-  st.subheader('Officer Trends')
-  st.bar_chart(off_df.groupby(['Year', 'Metric'])['Count'].sum().reset_index(), x = 'Year', y = 'Count', color = 'Metric', stack = False)
-
-  st.subheader('Family Trends')
-  st.bar_chart(fam_df.groupby(['Year', 'Metric'])['Count'].sum().reset_index(), x = 'Year', y = 'Count', color = 'Metric', stack = False)
-  
-  st.subheader('Attendance Trends')
-  st.bar_chart(attend_df.groupby(['Year', 'Metric'])['Count'].sum().reset_index(), x = 'Year', y = 'Count', color = 'Metric', stack = False)
+  st.subheader('Contributions Breakdown')
+  st.bar_chart(contrib_df.groupby(['Year', 'Metric'])['Dollars'].sum().reset_index(), x = 'Year', y = 'Dollars', color = 'Metric', stack = False)
