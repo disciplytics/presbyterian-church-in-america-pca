@@ -31,7 +31,7 @@ def disbursements(df):
   TotalAllDisbursements = df.groupby(['Year'])['TotalAllDisbursements'].sum().reset_index()
 
   pct_df = pd.merge(TotalBenevolentDisbursements, TotalAllDisbursements, on = 'Year', how = 'left')
-  pct_df['TotalBenevolentDisbursementsPercentage'] = np.round(pct_df['TotalBenevolentDisbursements'] / pct_df['TotalAllDisbursements'], 2) * 100
+  pct_df['TotalBenevolentDisbursementsPercentage'] = np.round(pct_df['TotalBenevolentDisbursements'] / pct_df['TotalAllDisbursements'], 4) * 100
 
 
   TOTALCONTRIB = df.groupby(['Year'])['TOTALCONTRIB'].sum().reset_index()
