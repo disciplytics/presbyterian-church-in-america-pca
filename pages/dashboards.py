@@ -1,5 +1,7 @@
 import streamlit as st
 from page_components.utils.query_data import query_data
+from page_components.analyses.membership import membership
+
 # set page configs
 st.set_page_config(
     page_title="PCA Dashboards",
