@@ -31,7 +31,7 @@ st.dataframe(acs_df)
 
 # get geojson for selected area
 geojson_sql = "SELECT GEOJSON_VALUES FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE GEO_NAME = " + 'Tiffin' + "LIMIT 1"
-geojson = conn.query(geojson_sql, ttl=0)
+geojson = st.connection("snowflake").query(geojson_sql, ttl=0)
 
 # convert to dictionary
 geojson_dict = loads(geojson['GEOJSON_VALUES'][0])
