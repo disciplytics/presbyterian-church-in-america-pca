@@ -30,7 +30,7 @@ st.dataframe(acs_df)
 
 conn = st.connection("snowflake")
 # get geojson for selected area
-geojson_sql = "SELECT GEOJSON_VALUES FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE GEO_NAME = 'Norwood' LIMIT 1"
+geojson_sql = "SELECT DISTINCT GEOJSON_VALUES FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE GEO_NAME IN ('Norwood', 'Oakley') "
 geojson = conn.query(geojson_sql, ttl=0)
 
 # convert to dictionary
