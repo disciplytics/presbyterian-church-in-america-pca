@@ -34,7 +34,7 @@ geojson_sql = "SELECT DISTINCT GEOJSON_VALUES FROM DISCIPLYTICS_APP.COMMUNITY_DA
 geojson = conn.query(geojson_sql, ttl=0)
 
 # convert to dictionary
-geojson_dict = loads(geojson['GEOJSON_VALUES'][0])
+geojson_dict = loads(geojson['GEOJSON_VALUES'])
 
 # create the GeoJson layer
 geojson_layer = pdk.Layer(
