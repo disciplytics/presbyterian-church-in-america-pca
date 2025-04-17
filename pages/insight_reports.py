@@ -16,6 +16,13 @@ st.image("https://media.licdn.com/dms/image/v2/D4E16AQGCrog5mV8nBQ/profile-displ
 st.title('Community Insight Reports', help='This page offers community insights for each church. Great for ministry identification and evaluation.')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/) and community data is generated from the [American Community Survey](https://www.census.gov/programs-surveys/acs/about.html)')
 
+# connect to snowflake
+conn = st.connection("snowflake")
+
+# get geographical levels
+geo_options = conn.query("SELECT DISTINCT LEVEL FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY LEVEL", ttl=0, show_spinner = False)
+geo_sel = st.pills("Geo Levels", geo_options['LEVEL'], selection_mode="single")
+st.markdown(f"Your selected options: {geo_sel}.")
 
 # connect to snowflake
 @st.cache_data(show_spinner=False)
