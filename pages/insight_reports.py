@@ -26,12 +26,12 @@ st.markdown(f"Your selected option: {geo_sel}.")
 
 # connect to snowflake
 @st.cache_data(show_spinner=False)
-def load_acs_data():
-    sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{geo_sel}' LIMIT 10;"
+def load_acs_data(level):
+    sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' LIMIT 10;"
     conn = st.connection("snowflake")
     return conn.query(sql, ttl=0, show_spinner = False)
 # load the data
-acs_df = load_acs_data()
+acs_df = load_acs_data(geo_sel)
 
 st.dataframe(acs_df)
 
