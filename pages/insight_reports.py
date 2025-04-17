@@ -30,12 +30,11 @@ st.dataframe(acs_df)
 
 conn = st.connection("snowflake")
 # get geojson for selected area
-geojson_sql = "SELECT DISTINCT GEOJSON_VALUES FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE GEO_NAME IN ('Norwood', 'Springdale') "
+geojson_sql = "SELECT DISTINCT GEOJSON_VALUES FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE GEO_NAME IN ('Warren County') "
 geojson = conn.query(geojson_sql, ttl=0)
 
-st.write([i for i in geojson['GEOJSON_VALUES']])
 # convert to dictionary
-geojson_dict = loads(geojson['GEOJSON_VALUES'])
+geojson_dict = loads(geojson['GEOJSON_VALUES'][0])
 
 # create the GeoJson layer
 geojson_layer = pdk.Layer(
