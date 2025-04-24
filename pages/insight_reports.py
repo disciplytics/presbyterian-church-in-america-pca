@@ -15,7 +15,7 @@ st.image("https://media.licdn.com/dms/image/v2/D4E16AQGCrog5mV8nBQ/profile-displ
 # title
 st.title('Community Insight Reports', help='This page offers community insights for each church. Great for ministry identification and evaluation.')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/) and community data is generated from the [American Community Survey](https://www.census.gov/programs-surveys/acs/about.html)')
-st.write('HappyFaith was here.')
+
 # connect to snowflake
 conn = st.connection("snowflake")
 
