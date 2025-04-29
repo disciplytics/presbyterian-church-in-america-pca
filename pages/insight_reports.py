@@ -12,12 +12,13 @@ st.set_page_config(
 st.title('Community Insight Reports', help='This page offers community insights for each church. Great for ministry identification and evaluation.')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/) and community data is generated from the [American Community Survey](https://www.census.gov/programs-surveys/acs/about.html)')
 
+# connect to snowflake
+conn = st.connection("snowflake")
 
 single_tab, compare_tab = st.tabs(['Single Area', 'Compare Two Areas'])
 
 with single_tab:
-    # connect to snowflake
-    conn = st.connection("snowflake")
+    
     try:
         # get geographical rel levels
         geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
@@ -67,14 +68,12 @@ with single_tab:
         st.pydeck_chart(r)
         
         st.dataframe(acs_df)
-        del conn
     except:
         st.write('Make the above selections.')
 
 
 with compare_tab:
-    # connect to snowflake
-    conn = st.connection("snowflake")
+
     first, second = st.columns(2)
     try:
         with first:
@@ -132,7 +131,5 @@ with compare_tab:
                                     )
             st.dataframe(acs_df_comp)
     
-        del conn
-
     except:
         st.write('Make the above selections.') 
