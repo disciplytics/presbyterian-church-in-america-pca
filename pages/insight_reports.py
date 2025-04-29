@@ -26,7 +26,7 @@ geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELA
 if geo_rel_sel:
     # get geographical levels
     geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-    geo_sel = st.pills("Geographical Levels: Select One to Get Started", geo_options['LEVEL'], selection_mode="single")
+    geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single")
     st.markdown(f"Your selected option: {geo_sel}.")
 
 '''
