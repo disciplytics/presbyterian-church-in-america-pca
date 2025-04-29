@@ -93,11 +93,11 @@ with compare_tab:
     with second:
         # get geographical rel levels
         second_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-        second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
+        second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", key =1)
             
         # get geographical levels
         second_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-        second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single")
+        second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single", key = 2)
             
         if second_geo_sel:
             # get geographical names
