@@ -73,42 +73,44 @@ with single_tab:
 
 with compare_tab:
     first, second = st.columns(2)
-    with first:
-        # get geographical rel levels
-        first_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-        first_geo_rel_sel = st.pills("Select Base State: ", first_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
-        
-        # get geographical levels
-        first_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-        first_geo_sel = st.pills("Select Base Geographical Levels: ", first_geo_options['LEVEL'], selection_mode="single")
-        
-        if first_geo_sel:
-            # get geographical names
-            first_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{first_geo_sel}' AND RELATED_GEO_NAME = '{first_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-            first_geo_name_sel = st.selectbox(f"Base {first_geo_sel} Selection", first_geo_name_options['GEO_NAME'])
-    with second:
-        # get geographical rel levels
-        second_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-        second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
-        
-        # get geographical levels
-        second_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-        second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single")
-        
-        if second_geo_sel:
-            # get geographical names
-            second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{second_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-            second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'])
-
-    # connect to snowflake
-    @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
-    def load_acs_data(level, state, geo):
-        sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL IN ({level}) AND RELATED_GEO_NAME '{state}' AND GEO_NAME = ({geo});"
-        return conn.query(sql, ttl=0, show_spinner = False)
-    # load the data
-    if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel:
-        acs_df = load_acs_data(first_geo_sel + ',' + second_geo_sel, first_geo_rel_sel + ',' + second_geo_rel_sel, first_geo_name_sel + ',' + second_geo_name_sel)
-        
+    try:
+        with first:
+            # get geographical rel levels
+            first_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
+            first_geo_rel_sel = st.pills("Select Base State: ", first_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
+            
+            # get geographical levels
+            first_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
+            first_geo_sel = st.pills("Select Base Geographical Levels: ", first_geo_options['LEVEL'], selection_mode="single")
+            
+            if first_geo_sel:
+                # get geographical names
+                first_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{first_geo_sel}' AND RELATED_GEO_NAME = '{first_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
+                first_geo_name_sel = st.selectbox(f"Base {first_geo_sel} Selection", first_geo_name_options['GEO_NAME'])
+        with second:
+            # get geographical rel levels
+            second_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
+            second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
+            
+            # get geographical levels
+            second_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
+            second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single")
+            
+            if second_geo_sel:
+                # get geographical names
+                second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{second_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
+                second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'])
+    
+        # connect to snowflake
+        @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
+        def load_acs_data(level, state, geo):
+            sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL IN ({level}) AND RELATED_GEO_NAME '{state}' AND GEO_NAME = ({geo});"
+            return conn.query(sql, ttl=0, show_spinner = False)
+        # load the data
+        if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel:
+            acs_df = load_acs_data(first_geo_sel + ',' + second_geo_sel, first_geo_rel_sel + ',' + second_geo_rel_sel, first_geo_name_sel + ',' + second_geo_name_sel)
+    except:
+        st.write('Make the above selections.')    
 
 
 '''
