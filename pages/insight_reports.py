@@ -20,7 +20,7 @@ st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplyti
 conn = st.connection("snowflake")
 
 # get geographical levels
-geo_options = conn.query("SELECT DISTINCT LEVEL FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY LEVEL", ttl=0, show_spinner = False)
+geo_options = conn.query("SELECT DISTINCT LEVEL FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA", ttl=0, show_spinner = False)
 geo_sel = st.pills("Geographical Levels: Select One to Get Started", geo_options['LEVEL'], selection_mode="single")
 st.markdown(f"Your selected option: {geo_sel}.")
 
