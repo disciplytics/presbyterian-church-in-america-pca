@@ -31,7 +31,7 @@ with single_tab:
         geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
         geo_name_sel = st.selectbox(f"{geo_sel} Selection", geo_name_options['GEO_NAME'])
 
-    if geo_name_sel and geo_rel_sel:
+    try:
         # connect to snowflake
         @st.cache_data(show_spinner=f"Generating community analysis for {geo_name_sel}, {geo_rel_sel}.")
         def load_acs_data_single(level, state, geo):
@@ -66,7 +66,7 @@ with single_tab:
         st.pydeck_chart(r)
         
         st.dataframe(acs_df)
-    else:
+    except:
         st.write('Make the above selections.')
 
 
