@@ -23,23 +23,23 @@ conn = st.connection("snowflake")
 geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
 geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
 
-if geo_rel_sel:
-    # get geographical levels
-    geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-    geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single")
-    st.markdown(f"Your selected option: {geo_sel}.")
+# get geographical levels
+geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
+geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single")
+st.markdown(f"Your selected option: {geo_sel}.")
 
-'''
+
 # connect to snowflake
 @st.cache_data(show_spinner=False)
-def load_acs_data(level):
-    sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' LIMIT 10;"
+def load_acs_data(level, state):
+    sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' AND RELATED_GEO_NAME = '{state}' LIMIT 10;"
     return conn.query(sql, ttl=0, show_spinner = False)
 # load the data
-acs_df = load_acs_data(geo_sel)
-
-st.dataframe(acs_df)
-
+if geo_sel and geo_rel_sel:
+    acs_df = load_acs_data(geo_sel, geo_rel_sel)
+    
+    st.dataframe(acs_df)
+'''
 conn = st.connection("snowflake")
 # get geojson for selected area
 geojson_sql = "SELECT DISTINCT GEOJSON_VALUES FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE GEO_NAME IN ('Warren County') "
