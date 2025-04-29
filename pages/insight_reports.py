@@ -32,7 +32,7 @@ if geo_sel:
 # connect to snowflake
 @st.cache_data(show_spinner=f"Generating community analysis for {geo_name_sel}, {geo_rel_sel}.")
 def load_acs_data(level, state, geo):
-    sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' AND RELATED_GEO_NAME = '{state}' AND GEO_NAME = '{geo}' LIMIT 10;"
+    sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' AND RELATED_GEO_NAME = '{state}' AND GEO_NAME = '{geo}';"
     return conn.query(sql, ttl=0, show_spinner = False)
 # load the data
 if geo_sel and geo_rel_sel:
