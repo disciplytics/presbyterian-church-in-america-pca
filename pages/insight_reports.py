@@ -108,22 +108,23 @@ with compare_tab:
     @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
     def load_acs_data(level_base, level_compare, state_base, state_compare, geo_base, geo_compare):
         if level_base == level_compare:
-            LEVEL_QUERY = f="('{level_base}')"
+            LEVEL_QUERY = f"('{level_base}')"
         else:
-            LEVEL_QUERY = f="('{level_base}', '{level_compare}')"
+            LEVEL_QUERY = f"('{level_base}', '{level_compare}')"
             
         if state_base == state_compare:
-            RELATED_GEO_NAME_QUERY = f="('{state_base}')"
+            RELATED_GEO_NAME_QUERY = f"('{state_base}')"
         else:
-            RELATED_GEO_NAME_QUERY = f="('{state_base}', '{state_compare}')"
+            RELATED_GEO_NAME_QUERY = f"('{state_base}', '{state_compare}')"
             
         if geo_base == geo_compare:
-            GEO_QUERY = f="('{geo_base}')"
+            GEO_QUERY = f"('{geo_base}')"
         else:
-            GEO_QUERY = f="('{geo_base}', '{geo_compare}')"
+            GEO_QUERY = f"('{geo_base}', '{geo_compare}')"
             
         sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL IN {LEVEL_QUERY} AND RELATED_GEO_NAME IN {RELATED_GEO_NAME_QUERY} AND GEO_NAME IN {GEO_QUERY};"
         return conn.query(sql, ttl=0, show_spinner = False)
+        
     # load the data
     if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel and first_geo_name_sel and second_geo_name_sel:
         acs_df_comp = load_acs_data(
@@ -135,6 +136,7 @@ with compare_tab:
                         second_geo_name_sel
                                 )
         st.dataframe(acs_df_comp)
+
        
 
 
