@@ -109,6 +109,7 @@ with compare_tab:
         # load the data
         if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel:
             acs_df = load_acs_data(first_geo_sel + ',' + second_geo_sel, first_geo_rel_sel + ',' + second_geo_rel_sel, first_geo_name_sel + ',' + second_geo_name_sel)
+            st.dataframe(acs_df)
     except:
         st.write('Make the above selections.')    
 
