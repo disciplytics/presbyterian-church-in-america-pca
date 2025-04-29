@@ -12,6 +12,9 @@ st.set_page_config(
 st.title('Community Insight Reports', help='This page offers community insights for each church. Great for ministry identification and evaluation.')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/) and community data is generated from the [American Community Survey](https://www.census.gov/programs-surveys/acs/about.html)')
 
+analysis_type = st.pills("Select an Analysis Type:", ["Single Area", "Compare Areas"], selection_mode="single")
+analysis_sel = st.caption('Single Area is helpful when drilling down to one area. Compare Areas is helpful when looking into how a location compares to another.')
+
 # connect to snowflake
 conn = st.connection("snowflake")
 
