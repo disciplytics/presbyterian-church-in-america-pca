@@ -32,7 +32,7 @@ if analysis_sel == "Single Area":
         # get geographical names
         geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
         geo_name_sel = st.selectbox(f"{geo_sel} Selection", geo_name_options['GEO_NAME'])
-else:
+elif analysis_sel == "Compare Areas":
     first, second = st.columns(2)
     with first:
         # get geographical rel levels
@@ -60,7 +60,8 @@ else:
             # get geographical names
             second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{second_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
             second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'])
-
+else:
+    st.write('Please select an analysis')
 
 # connect to snowflake
 @st.cache_data(show_spinner=f"Generating community analysis for {geo_name_sel}, {geo_rel_sel}.")
