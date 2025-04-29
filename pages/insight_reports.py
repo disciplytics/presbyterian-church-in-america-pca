@@ -107,7 +107,7 @@ with compare_tab:
     # connect to snowflake
     @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
     def load_acs_data(level, state, geo):
-        sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL IN ({level}) AND RELATED_GEO_NAME '{state}' AND GEO_NAME = ({geo});"
+        sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL IN ({level}) AND RELATED_GEO_NAME IN ({state}) AND GEO_NAME IN ({geo});"
         return conn.query(sql, ttl=0, show_spinner = False)
     # load the data
     if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel and first_geo_name_sel and second_geo_name_sel:
