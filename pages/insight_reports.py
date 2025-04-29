@@ -12,12 +12,12 @@ st.set_page_config(
 st.title('Community Insight Reports', help='This page offers community insights for each church. Great for ministry identification and evaluation.')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/) and community data is generated from the [American Community Survey](https://www.census.gov/programs-surveys/acs/about.html)')
 
-# connect to snowflake
-conn = st.connection("snowflake")
 
 single_tab, compare_tab = st.tabs(['Single Area', 'Compare Two Areas'])
 
 with single_tab:
+    # connect to snowflake
+    conn = st.connection("snowflake")
     try:
         # get geographical rel levels
         geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
@@ -67,11 +67,14 @@ with single_tab:
         st.pydeck_chart(r)
         
         st.dataframe(acs_df)
+        del conn
     except:
         st.write('Make the above selections.')
 
 
 with compare_tab:
+    # connect to snowflake
+    conn = st.connection("snowflake")
     first, second = st.columns(2)
     try:
         with first:
@@ -87,117 +90,55 @@ with compare_tab:
                 # get geographical names
                 first_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{first_geo_sel}' AND RELATED_GEO_NAME = '{first_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
                 first_geo_name_sel = st.selectbox(f"Base {first_geo_sel} Selection", first_geo_name_options['GEO_NAME'], index = 0)
+        
+        with second:
+            # get geographical rel levels
+            second_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
+            second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", key =5,  default = 'Ohio')
+                
+            # get geographical levels
+            second_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
+            second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single", key = 6,  default = 'County')
+                
+            if second_geo_sel:
+                # get geographical names
+                second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{second_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
+                second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'], index = 1)
+        
+        # connect to snowflake
+        @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
+        def load_acs_data(level_base, level_compare, state_base, state_compare, geo_base, geo_compare):
+            if level_base == level_compare:
+                LEVEL_QUERY = f"('{level_base}')"
+            else:
+                LEVEL_QUERY = f"('{level_base}', '{level_compare}')"
+                
+            if state_base == state_compare:
+                RELATED_GEO_NAME_QUERY = f"('{state_base}')"
+            else:
+                RELATED_GEO_NAME_QUERY = f"('{state_base}', '{state_compare}')"
+                
+            if geo_base == geo_compare:
+                GEO_QUERY = f"('{geo_base}')"
+            else:
+                GEO_QUERY = f"('{geo_base}', '{geo_compare}')"
+                
+            sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL IN {LEVEL_QUERY} AND RELATED_GEO_NAME IN {RELATED_GEO_NAME_QUERY} AND GEO_NAME IN {GEO_QUERY};"
+            return conn.query(sql, ttl=0, show_spinner = False)
+            
+        # load the data
+        if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel and first_geo_name_sel and second_geo_name_sel:
+            acs_df_comp = load_acs_data(
+                            first_geo_sel,
+                            second_geo_sel, 
+                            first_geo_rel_sel,
+                            second_geo_rel_sel,
+                            first_geo_name_sel, 
+                            second_geo_name_sel
+                                    )
+            st.dataframe(acs_df_comp)
+    
+        del conn
+
     except:
         st.write('Make the above selections.') 
-        
-    with second:
-        # get geographical rel levels
-        second_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-        second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", key =5,  default = 'Ohio')
-            
-        # get geographical levels
-        second_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-        second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single", key = 6,  default = 'County')
-            
-        if second_geo_sel:
-            # get geographical names
-            second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{second_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-            second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'], index = 1)
-    
-    # connect to snowflake
-    @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
-    def load_acs_data(level_base, level_compare, state_base, state_compare, geo_base, geo_compare):
-        if level_base == level_compare:
-            LEVEL_QUERY = f"('{level_base}')"
-        else:
-            LEVEL_QUERY = f"('{level_base}', '{level_compare}')"
-            
-        if state_base == state_compare:
-            RELATED_GEO_NAME_QUERY = f"('{state_base}')"
-        else:
-            RELATED_GEO_NAME_QUERY = f"('{state_base}', '{state_compare}')"
-            
-        if geo_base == geo_compare:
-            GEO_QUERY = f"('{geo_base}')"
-        else:
-            GEO_QUERY = f"('{geo_base}', '{geo_compare}')"
-            
-        sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL IN {LEVEL_QUERY} AND RELATED_GEO_NAME IN {RELATED_GEO_NAME_QUERY} AND GEO_NAME IN {GEO_QUERY};"
-        return conn.query(sql, ttl=0, show_spinner = False)
-        
-    # load the data
-    if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel and first_geo_name_sel and second_geo_name_sel:
-        acs_df_comp = load_acs_data(
-                        first_geo_sel,
-                        second_geo_sel, 
-                        first_geo_rel_sel,
-                        second_geo_rel_sel,
-                        first_geo_name_sel, 
-                        second_geo_name_sel
-                                )
-        st.dataframe(acs_df_comp)
-
-       
-
-
-'''
-conn = st.connection("snowflake")
-# get geojson for selected area
-geojson_sql = "SELECT DISTINCT GEOJSON_VALUES FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE GEO_NAME IN ('Warren County') "
-geojson = conn.query(geojson_sql, ttl=0)
-
-# convert to dictionary
-geojson_dict = loads(geojson['GEOJSON_VALUES'][0])
-
-# create the GeoJson layer
-geojson_layer = pdk.Layer(
-    "GeoJsonLayer",
-    geojson_dict,
-    opacity=0.3,
-    stroked=False,
-    filled=True,
-    extruded=True,
-    wireframe=True,
-    get_elevation="20",
-    get_fill_color="[137, 207, 240]",
-    get_line_color=[255, 255, 255],
-)
-
-INITIAL_VIEW_STATE = pdk.ViewState(latitude=geojson_dict['coordinates'][0][0][1], longitude=geojson_dict['coordinates'][0][0][0], zoom=9, max_zoom=16, pitch=45, bearing=0)
-
-# create the pydeck using the geojson layer
-r = pdk.Deck(layers=[ geojson_layer ], map_style=None, initial_view_state=INITIAL_VIEW_STATE)
-
-# display the pydeck
-st.pydeck_chart(r)
-
-
-# get geojson for selected area
-geojson_sql = "SELECT GEOJSON_VALUES FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE GEO_NAME = '44883' LIMIT 1"
-geojson = conn.query(geojson_sql, ttl=0)
-
-# convert to dictionary
-geojson_dict = loads(geojson['GEOJSON_VALUES'][0])
-
-# create the GeoJson layer
-geojson_layer = pdk.Layer(
-    "GeoJsonLayer",
-    geojson_dict,
-    opacity=0.3,
-    stroked=False,
-    filled=True,
-    extruded=True,
-    wireframe=True,
-    get_elevation="20",
-    get_fill_color="[137, 207, 240]",
-    get_line_color=[255, 255, 255],
-)
-
-INITIAL_VIEW_STATE = pdk.ViewState(latitude=geojson_dict['coordinates'][0][0][1], longitude=geojson_dict['coordinates'][0][0][0], zoom=9, max_zoom=16, pitch=45, bearing=0)
-
-# create the pydeck using the geojson layer
-r = pdk.Deck(layers=[ geojson_layer ], map_style=None, initial_view_state=INITIAL_VIEW_STATE)
-
-# display the pydeck
-st.pydeck_chart(r)
-'''
