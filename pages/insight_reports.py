@@ -30,7 +30,7 @@ geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options[
 if geo_sel:
     # get geographical names
     geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}';", ttl=0, show_spinner = False)
-    geo_name_sel = st.pills(f"{geo_sel} Selection: Select One to drill down further", geo_options['GEO_NAME'], selection_mode="single")
+    geo_name_sel = st.pills(f"{geo_sel} Selection: Select One to drill down further", geo_name_options['GEO_NAME'], selection_mode="single")
 
 
     st.markdown(f"Generating community analysis for {geo_sel}: {geo_name_sel}, {geo_rel_sel}.")
