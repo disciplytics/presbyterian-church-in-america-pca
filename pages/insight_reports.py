@@ -111,10 +111,12 @@ with compare_tab:
             LEVEL_QUERY = f="('{level_base}')"
         else:
             LEVEL_QUERY = f="('{level_base}', '{level_compare}')"
+            
         if state_base == state_compare:
             RELATED_GEO_NAME_QUERY = f="('{state_base}')"
         else:
             RELATED_GEO_NAME_QUERY = f="('{state_base}', '{state_compare}')"
+            
         if geo_base == geo_compare:
             GEO_QUERY = f="('{geo_base}')"
         else:
@@ -124,7 +126,7 @@ with compare_tab:
         return conn.query(sql, ttl=0, show_spinner = False)
     # load the data
     if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel and first_geo_name_sel and second_geo_name_sel:
-        acs_df = load_acs_data(
+        acs_df_comp = load_acs_data(
                         first_geo_sel,
                         second_geo_sel, 
                         first_geo_rel_sel,
@@ -132,7 +134,7 @@ with compare_tab:
                         first_geo_name_sel, 
                         second_geo_name_sel
                                 )
-        st.dataframe(acs_df)
+        st.dataframe(acs_df_comp)
        
 
 
