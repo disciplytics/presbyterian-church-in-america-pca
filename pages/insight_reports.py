@@ -71,6 +71,16 @@ elif analysis_sel == "Compare Areas":
             # get geographical names
             second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{second_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
             second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'])
+
+    # connect to snowflake
+    @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
+    def load_acs_data(level, state, geo):
+        sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL IN ({level}) AND RELATED_GEO_NAME '{state}' AND GEO_NAME = ({geo});"
+        return conn.query(sql, ttl=0, show_spinner = False)
+    # load the data
+    if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel:
+        acs_df = load_acs_data(first_geo_sel + ',' + second_geo_sel, first_geo_rel_sel + ',' + second_geo_rel_sel, first_geo_name_sel + ',' + second_geo_name_sel)
+        
 else:
     st.write('Please select an analysis')
 
