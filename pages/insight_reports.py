@@ -32,6 +32,17 @@ if analysis_sel == "Single Area":
         # get geographical names
         geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
         geo_name_sel = st.selectbox(f"{geo_sel} Selection", geo_name_options['GEO_NAME'])
+
+    # connect to snowflake
+    @st.cache_data(show_spinner=f"Generating community analysis for {geo_name_sel}, {geo_rel_sel}.")
+    def load_acs_data(level, state, geo):
+        sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' AND RELATED_GEO_NAME = '{state}' AND GEO_NAME = '{geo}';"
+        return conn.query(sql, ttl=0, show_spinner = False)
+    # load the data
+    if geo_sel and geo_rel_sel:
+        acs_df = load_acs_data(geo_sel, geo_rel_sel, geo_name_sel)
+
+
 elif analysis_sel == "Compare Areas":
     first, second = st.columns(2)
     with first:
@@ -63,14 +74,7 @@ elif analysis_sel == "Compare Areas":
 else:
     st.write('Please select an analysis')
 
-# connect to snowflake
-@st.cache_data(show_spinner=f"Generating community analysis for {geo_name_sel}, {geo_rel_sel}.")
-def load_acs_data(level, state, geo):
-    sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' AND RELATED_GEO_NAME = '{state}' AND GEO_NAME = '{geo}';"
-    return conn.query(sql, ttl=0, show_spinner = False)
-# load the data
-if geo_sel and geo_rel_sel:
-    acs_df = load_acs_data(geo_sel, geo_rel_sel, geo_name_sel)
+
 
     # convert to dictionary
     geojson_dict = loads(acs_df.head(1)['GEOJSON_VALUES'][0])
