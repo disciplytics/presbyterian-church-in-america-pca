@@ -26,17 +26,23 @@ geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELA
 # get geographical levels
 geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
 geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single")
-st.markdown(f"Your selected option: {geo_sel}.")
 
+if geo_sel:
+    # get geographical names
+    geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}';", ttl=0, show_spinner = False)
+    geo_name_sel = st.pills(f"{geo_sel} Selection: Select One to drill down further", geo_options['GEO_NAME'], selection_mode="single")
+
+
+    st.markdown(f"Generating community analysis for {geo_sel}: {geo_name_sel}, {geo_rel_sel}.")
 
 # connect to snowflake
 @st.cache_data(show_spinner=False)
-def load_acs_data(level, state):
-    sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' AND RELATED_GEO_NAME = '{state}' LIMIT 10;"
+def load_acs_data(level, state, geo):
+    sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' AND RELATED_GEO_NAME = '{state}' AND GEO_NAME = '{geo}' LIMIT 10;"
     return conn.query(sql, ttl=0, show_spinner = False)
 # load the data
 if geo_sel and geo_rel_sel:
-    acs_df = load_acs_data(geo_sel, geo_rel_sel)
+    acs_df = load_acs_data(geo_sel, geo_rel_sel, geo_name_sel)
     
     st.dataframe(acs_df)
 '''
