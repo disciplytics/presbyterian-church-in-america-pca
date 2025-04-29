@@ -20,16 +20,16 @@ single_tab, compare_tab = st.tabs(['Single Area', 'Compare Two Areas'])
 with single_tab:
     # get geographical rel levels
     geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-    geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELATED_GEO_NAME'], selection_mode="single",default = 0)
+    geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", default = 'Ohio')
     
     # get geographical levels
     geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-    geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single")
+    geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single", default = 'City')
     
     if geo_sel:
         # get geographical names
         geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-        geo_name_sel = st.selectbox(f"{geo_sel} Selection", geo_name_options['GEO_NAME'])
+        geo_name_sel = st.selectbox(f"{geo_sel} Selection", geo_name_options['GEO_NAME'], index=0)
 
     try:
         # connect to snowflake
