@@ -37,7 +37,33 @@ def load_acs_data(level, state, geo):
 # load the data
 if geo_sel and geo_rel_sel:
     acs_df = load_acs_data(geo_sel, geo_rel_sel, geo_name_sel)
+
+    # convert to dictionary
+    geojson_dict = loads(acs_df.head(1)['GEOJSON_VALUES'][0])
     
+    # create the GeoJson layer
+    geojson_layer = pdk.Layer(
+        "GeoJsonLayer",
+        geojson_dict,
+        opacity=0.3,
+        stroked=False,
+        filled=True,
+        extruded=True,
+        wireframe=True,
+        get_elevation="20",
+        get_fill_color="[137, 207, 240]",
+        get_line_color=[255, 255, 255],
+    )
+    
+    INITIAL_VIEW_STATE = pdk.ViewState(latitude=geojson_dict['coordinates'][0][0][1], longitude=geojson_dict['coordinates'][0][0][0], zoom=9, max_zoom=16, pitch=45, bearing=0)
+    
+    # create the pydeck using the geojson layer
+    r = pdk.Deck(layers=[ geojson_layer ], map_style=None, initial_view_state=INITIAL_VIEW_STATE)
+    
+    # display the pydeck
+    st.pydeck_chart(r)
+
+
     st.dataframe(acs_df)
 '''
 conn = st.connection("snowflake")
