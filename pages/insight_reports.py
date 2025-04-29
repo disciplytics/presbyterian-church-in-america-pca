@@ -18,18 +18,48 @@ analysis_sel = st.caption('Single Area is helpful when drilling down to one area
 # connect to snowflake
 conn = st.connection("snowflake")
 
-# get geographical rel levels
-geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
 
-# get geographical levels
-geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single")
-
-if geo_sel:
-    # get geographical names
-    geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-    geo_name_sel = st.selectbox(f"{geo_sel} Selection", geo_name_options['GEO_NAME'])
+if analysis_sel == "Single Area":
+    # get geographical rel levels
+    geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
+    geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
+    
+    # get geographical levels
+    geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
+    geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single")
+    
+    if geo_sel:
+        # get geographical names
+        geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
+        geo_name_sel = st.selectbox(f"{geo_sel} Selection", geo_name_options['GEO_NAME'])
+else:
+    first, second = st.columns(2)
+    with first:
+        # get geographical rel levels
+        first_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
+        first_geo_rel_sel = st.pills("State: Select One to Get Started", first_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
+        
+        # get geographical levels
+        first_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
+        first_geo_sel = st.pills("Geographical Levels: Select One to drill down", first_geo_options['LEVEL'], selection_mode="single")
+        
+        if first_geo_sel:
+            # get geographical names
+            first_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{first_geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
+            first_geo_name_sel = st.selectbox(f"{first_geo_sel} Selection", first_geo_name_options['GEO_NAME'])
+    with second:
+        # get geographical rel levels
+        second_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
+        second_geo_rel_sel = st.pills("State: Select One to Get Started", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
+        
+        # get geographical levels
+        second_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
+        second_geo_sel = st.pills("Geographical Levels: Select One to drill down", second_geo_options['LEVEL'], selection_mode="single")
+        
+        if second_geo_sel:
+            # get geographical names
+            second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
+            second_geo_name_sel = st.selectbox(f"{second_geo_sel} Selection", second_geo_name_options['GEO_NAME'])
 
 
 # connect to snowflake
