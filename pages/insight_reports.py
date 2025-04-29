@@ -106,8 +106,6 @@ with compare_tab:
     if first_geo_sel and first_geo_rel_sel and second_geo_sel and second_geo_rel_sel:
         acs_df = load_acs_data(first_geo_sel + ',' + second_geo_sel, first_geo_rel_sel + ',' + second_geo_rel_sel, first_geo_name_sel + ',' + second_geo_name_sel)
         
-else:
-    st.write('Please select an analysis')
 
 
 '''
