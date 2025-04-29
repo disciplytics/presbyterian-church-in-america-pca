@@ -21,11 +21,11 @@ with single_tab:
     try:
         # get geographical rel levels
         geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-        geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", default = 'Ohio')
+        geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", default = 'Ohio', key = 1)
         
         # get geographical levels
         geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-        geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single", default = 'City')
+        geo_sel = st.pills("Geographical Levels: Select One to drill down", geo_options['LEVEL'], selection_mode="single", default = 'City', key = 2)
         
         if geo_sel:
             # get geographical names
@@ -77,11 +77,11 @@ with compare_tab:
         with first:
             # get geographical rel levels
             first_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-            first_geo_rel_sel = st.pills("Select Base State: ", first_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", default = 'Ohio')
+            first_geo_rel_sel = st.pills("Select Base State: ", first_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", default = 'Ohio', key = 3)
             
             # get geographical levels
             first_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-            first_geo_sel = st.pills("Select Base Geographical Levels: ", first_geo_options['LEVEL'], selection_mode="single", default = 'County')
+            first_geo_sel = st.pills("Select Base Geographical Levels: ", first_geo_options['LEVEL'], selection_mode="single", default = 'County', key = 4)
             
             if first_geo_sel:
                 # get geographical names
@@ -93,11 +93,11 @@ with compare_tab:
     with second:
         # get geographical rel levels
         second_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-        second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", key =1,  default = 'Ohio')
+        second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", key =5,  default = 'Ohio')
             
         # get geographical levels
         second_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-        second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single", key = 2,  default = 'County')
+        second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single", key = 6,  default = 'County')
             
         if second_geo_sel:
             # get geographical names
