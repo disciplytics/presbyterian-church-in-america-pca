@@ -12,14 +12,13 @@ st.set_page_config(
 st.title('Community Insight Reports', help='This page offers community insights for each church. Great for ministry identification and evaluation.')
 st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/) and community data is generated from the [American Community Survey](https://www.census.gov/programs-surveys/acs/about.html)')
 
-analysis_type = st.pills("Select an Analysis Type:", ["Single Area", "Compare Areas"], selection_mode="single")
-analysis_sel = st.caption('Single Area is helpful when drilling down to one area. Compare Areas is helpful when looking into how a location compares to another.')
-
 # connect to snowflake
 conn = st.connection("snowflake")
 
+single_tab, compare_tab = st.tabs(['Single Area', 'Compare Two Areas'])
+st.caption('Single Area is helpful when drilling down to one area. Compare Areas is helpful when looking into how a location compares to another.')
 
-if analysis_sel == "Single Area":
+with single_tab:
     # get geographical rel levels
     geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
     geo_rel_sel = st.pills("State: Select One to Get Started", geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
@@ -69,7 +68,7 @@ if analysis_sel == "Single Area":
     st.dataframe(acs_df)
 
 
-elif analysis_sel == "Compare Areas":
+with compare_tab:
     first, second = st.columns(2)
     with first:
         # get geographical rel levels
