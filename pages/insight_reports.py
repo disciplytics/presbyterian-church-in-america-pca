@@ -33,10 +33,8 @@ if geo_sel:
     geo_name_sel = st.selectbox(f"{geo_sel} Selection: Select One to drill down further", geo_name_options['GEO_NAME'])
 
 
-    st.markdown(f"Generating community analysis for {geo_sel}: {geo_name_sel}, {geo_rel_sel}.")
-
 # connect to snowflake
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=f"Generating community analysis for {geo_name_sel}, {geo_rel_sel}.")
 def load_acs_data(level, state, geo):
     sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{level}' AND RELATED_GEO_NAME = '{state}' AND GEO_NAME = '{geo}' LIMIT 10;"
     return conn.query(sql, ttl=0, show_spinner = False)
