@@ -37,29 +37,29 @@ else:
     with first:
         # get geographical rel levels
         first_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-        first_geo_rel_sel = st.pills("State: Select One to Get Started", first_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
+        first_geo_rel_sel = st.pills("Select Base State: ", first_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
         
         # get geographical levels
         first_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-        first_geo_sel = st.pills("Geographical Levels: Select One to drill down", first_geo_options['LEVEL'], selection_mode="single")
+        first_geo_sel = st.pills("Select Base Geographical Levels: ", first_geo_options['LEVEL'], selection_mode="single")
         
         if first_geo_sel:
             # get geographical names
             first_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{first_geo_sel}' AND RELATED_GEO_NAME = '{first_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-            first_geo_name_sel = st.selectbox(f"{first_geo_sel} Selection", first_geo_name_options['GEO_NAME'])
+            first_geo_name_sel = st.selectbox(f"Base {first_geo_sel} Selection", first_geo_name_options['GEO_NAME'])
     with second:
         # get geographical rel levels
         second_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-        second_geo_rel_sel = st.pills("State: Select One to Get Started", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
+        second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single")
         
         # get geographical levels
         second_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-        second_geo_sel = st.pills("Geographical Levels: Select One to drill down", second_geo_options['LEVEL'], selection_mode="single")
+        second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single")
         
         if second_geo_sel:
             # get geographical names
             second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{second_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-            second_geo_name_sel = st.selectbox(f"{second_geo_sel} Selection", second_geo_name_options['GEO_NAME'])
+            second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'])
 
 
 # connect to snowflake
