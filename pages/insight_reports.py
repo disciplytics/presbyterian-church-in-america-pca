@@ -86,7 +86,7 @@ with compare_tab:
             if first_geo_sel:
                 # get geographical names
                 first_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{first_geo_sel}' AND RELATED_GEO_NAME = '{first_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-                first_geo_name_sel = st.selectbox(f"Base {first_geo_sel} Selection", first_geo_name_options['GEO_NAME'], default = 0)
+                first_geo_name_sel = st.selectbox(f"Base {first_geo_sel} Selection", first_geo_name_options['GEO_NAME'], index = 0)
     except:
         st.write('Make the above selections.') 
         
@@ -102,7 +102,7 @@ with compare_tab:
         if second_geo_sel:
             # get geographical names
             second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{second_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-            second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'], default = 0)
+            second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'], index = 0)
     
     # connect to snowflake
     @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
