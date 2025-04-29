@@ -108,17 +108,18 @@ with compare_tab:
         # connect to snowflake
         @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
         def load_acs_data(state_base, state_compare, geo_base, geo_compare):
-            if state_base == state_compare:
-                RELATED_GEO_NAME_QUERY = f"('{state_base}')"
-            else:
-                RELATED_GEO_NAME_QUERY = f"('{state_base}', '{state_compare}')"
+            if state_base == state_compare and geo_base == geo_compare:
+                sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE RELATED_GEO_NAME = '{state_base}' AND GEO_NAME = '{geo_base}';"
                 
-            if geo_base == geo_compare:
-                GEO_QUERY = f"('{geo_base}')"
-            else:
-                GEO_QUERY = f"('{geo_base}', '{geo_compare}')"
+            elif state_base == state_compare and geo_base != geo_compare:
+                sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE RELATED_GEO_NAME = '{state_base}' AND GEO_NAME IN ('{geo_base}', '{geo_compare}');"
+
+            elif state_base != state_compare and geo_base == geo_compare:
+                sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE RELATED_GEO_NAME IN ('{state_base}', '{state_compare}') AND GEO_NAME = '{geo_base}';"
+
+            elif state_base != state_compare and geo_base != geo_compare:
+                sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE RELATED_GEO_NAME IN  ('{state_base}', '{state_compare}') AND GEO_NAME IN ('{geo_base}', '{geo_compare}');"
                 
-            sql = f"SELECT * FROM DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE RELATED_GEO_NAME IN {RELATED_GEO_NAME_QUERY} AND GEO_NAME IN {GEO_QUERY};"
             return conn.query(sql, ttl=0, show_spinner = False)
             
         # load the data
