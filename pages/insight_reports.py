@@ -195,7 +195,7 @@ with compare_tab:
 
         bar = alt.Chart(acs_df_comp).mark_errorbar().encode(
             x=alt.X("Estimate:Q").scale(zero=True).title("Value"),
-            xError=("'Margin of Error':Q"),
+            xError=("Margin of Error:Q"),
             y=alt.Y("Area:N"),
             )
 
