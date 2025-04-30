@@ -188,26 +188,24 @@ with compare_tab:
 
         acs_df_comp['Value'] = to_numeric(acs_df_comp['VALUE'])
         acs_df_comp = acs_df_comp.rename(columns={'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
-        #acs_df_comp['Upper'] = 
-
-        st.dataframe(acs_df_comp.pivot_table('Value', ['Area'], 'MEASUREMENT_TYPE'))
-
-        '''
+        acs_df_comp = acs_df_comp.pivot_table('Value', ['Area'], 'MEASUREMENT_TYPE').reset_index()
         
+        acs_df_comp['Estimate (+ Margin of Error)'] = acs_df_comp['Estimate'] + acs_df_comp['Margin of Error']
+        acs_df_comp['Estimate (- Margin of Error)'] = acs_df_comp['Estimate'] - acs_df_comp['Margin of Error']
 
 
         bar = alt.Chart(acs_df_comp).mark_errorbar().encode(
-        alt.X("upper_yield:Q").scale(zero=False).title("yield"),
-        alt.X2("lower_yield:Q"),
-        alt.Y("variety:N"),
+        alt.X("Estimate (+ Margin of Error):Q").scale(zero=False).title("Value"),
+        alt.X2("'Estimate (- Margin of Error)':Q"),
+        alt.Y("Area:N"),
         )
         
-        point = alt.Chart(source).mark_point(
+        point = alt.Chart(acs_df_comp).mark_point(
             filled=True,
-            color="black"
+            color="blue"
         ).encode(
-            alt.X("center:Q"),
-            alt.Y("variety:N")
+            alt.X("Estimate:Q"),
+            alt.Y("Area:N")
         )
     
         st.altair_chart( point + bar)
