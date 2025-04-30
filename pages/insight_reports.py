@@ -198,8 +198,8 @@ with compare_tab:
             bar = alt.Chart(data).mark_errorbar(ticks=True).encode(
                 y=alt.Y("Estimate:Q").scale(zero=False).title(""),
                 yError=("Margin of Error:Q"),
-                x=alt.X("Area:N"),
-                column='Variable:N',
+                x=alt.X("Variable:N"),
+                column='Area:N',
                 color=alt.value("#4682b4"),
                 )
     
@@ -208,8 +208,8 @@ with compare_tab:
                 color="black"
             ).encode(
                 alt.Y("Estimate:Q"),
-                alt.X("Area:N"),
-                column='Variable:N'
+                alt.X("Variable:N"),
+                column='Area:N'
             )
             st.altair_chart(bar+point)
 
