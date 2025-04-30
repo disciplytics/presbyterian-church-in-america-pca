@@ -207,7 +207,7 @@ with compare_tab:
                 alt.X("Variable:N"),
             ).properties(width=300,height=150)
             
-            st.altair_chart(alt.layer(bar, data=data).facet(column='Area:N'))
+            st.altair_chart(alt.layer(bar, error, data=data).facet(column='Area:N'))
 
 
         st.markdown('### Income Reports')
