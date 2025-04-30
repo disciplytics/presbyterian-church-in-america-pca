@@ -2,7 +2,7 @@ import streamlit as st
 import pydeck as pdk
 from json import loads
 
-from utils.get_analysis import get_analysis
+from utils.get_analysis import analysis_layout
 
 # set page configs
 st.set_page_config(
@@ -185,7 +185,7 @@ with compare_tab:
             r_second = pdk.Deck(layers=[ geojson_layer_second ], map_style=None, initial_view_state=INITIAL_VIEW_STATE_SECOND)
                 # display the pydeck
             st.pydeck_chart(r_second)
-
+            
         analysis_layout(acs_df_comp)
 
 
