@@ -1,6 +1,8 @@
 import streamlit as st
 import pydeck as pdk
 from json import loads
+from pandas import to_numeric
+
 # set page configs
 st.set_page_config(
     page_title="Community Insight Reports",
@@ -183,7 +185,7 @@ with compare_tab:
             st.pydeck_chart(r_second)
 
 
-        acs_df_comp['Value'] = pd.to_numeric(acs_df_comp['VALUE'])
+        acs_df_comp['Value'] = to_numeric(acs_df_comp['VALUE'])
         acs_df_comp = acs_df_comp.rename({'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
         
         st.bar_chart(
