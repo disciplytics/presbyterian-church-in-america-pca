@@ -195,7 +195,7 @@ with compare_tab:
 
 
         bar = alt.Chart(acs_df_comp).mark_errorbar().encode(
-        alt.X("Estimate (+ Margin of Error):Q").scale(zero=True).title("Value"),
+        alt.X("Estimate (+ Margin of Error):Q").scale(zero=False).title("Value"),
         alt.X2("'Estimate (- Margin of Error)':Q"),
         alt.Y("Area:N"),
         )
@@ -209,7 +209,7 @@ with compare_tab:
         )
 
         c = point + bar
-        st.altair_chart(bar)
+        st.altair_chart(point)
 
         
         st.dataframe(acs_df_comp)
