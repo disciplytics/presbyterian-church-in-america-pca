@@ -209,7 +209,7 @@ with compare_tab:
         )
 
         c = point + bar
-        st.altair_chart(c)
+        st.altair_chart(bar)
 
         
         st.dataframe(acs_df_comp)
