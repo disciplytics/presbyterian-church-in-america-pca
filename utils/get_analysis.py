@@ -1,4 +1,6 @@
 def get_analysis(data, variables):
+      from pandas import to_numeric, pivot_table
+      import altair as alt
       ''' pass the dataframe with the analysis data and the variables to do the analysis on. '''
       data = data[data['VARIABLE'].isin(variables)]
             
