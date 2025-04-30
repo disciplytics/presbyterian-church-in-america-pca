@@ -214,7 +214,7 @@ with compare_tab:
 
             
             
-            st.altair_chart(alt.layer(bar, error, data=data).facet(facet=alt.Facet('Area:N')))
+            st.altair_chart(alt.layer(bar, error, data=data).facet(column='Area:N'))
 
 
         st.markdown('### Income Reports')
