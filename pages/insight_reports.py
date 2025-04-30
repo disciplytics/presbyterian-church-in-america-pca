@@ -195,6 +195,8 @@ with compare_tab:
             
             data = data.pivot_table('Value', ['Area', 'Variable'], 'MEASUREMENT_TYPE').reset_index()
 
+            data['Margin of Error'] = data['Margin of Error'].fillna(method='bfill')
+            
             st.dataframe(data)
     
             error = alt.Chart().mark_errorbar(ticks=True).encode(
