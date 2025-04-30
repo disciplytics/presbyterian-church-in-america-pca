@@ -67,5 +67,11 @@ def analysis_layout(data):
       st.markdown('##### Household Income')
         
       get_analysis(data, ['B19202_001E_5YR_2023','B19202_001M_5YR_2023','B19013_001E_5YR_2023','B19013_001M_5YR_2023','B19113_001E_5YR_2023','B19113_001M_5YR_2023'], False)
-        
+
+      st.markdown('\n\n')
+      st.markdown('##### SNAP Benefit Assistance')
+
+      get_analysis(data, ['B19058_001E_5YR','B19058_001M_5YR','B19058_002E_5YR','B19058_002M_5YR'], False)
+
+      
       st.dataframe(data)
