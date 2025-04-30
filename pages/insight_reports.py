@@ -4,7 +4,7 @@ from json import loads
 from pandas import to_numeric, pivot_table
 import altair as alt
 
-from .utils import get_analysis
+from .utils.get_analysis import get_analysis
 
 # set page configs
 st.set_page_config(
