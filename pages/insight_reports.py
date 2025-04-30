@@ -208,7 +208,6 @@ with compare_tab:
             ).encode(
                 alt.Y("Estimate:Q"),
                 alt.X("Variable:N"),
-                col
             )
             st.altair_chart(alt.layer(point, bar, data=data).facet(column='Area:N'))
 
