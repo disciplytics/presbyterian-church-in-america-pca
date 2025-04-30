@@ -198,7 +198,7 @@ with compare_tab:
             error = alt.Chart().mark_errorbar(ticks=True).encode(
                 y=alt.Y("Estimate:Q").scale(zero=False).title(""),
                 yError=("Margin of Error:Q"),
-                x=alt.X("Variable:N"),
+                #x=alt.X("Variable:N"),
                 color=alt.value("#4682b4")
             )
     
