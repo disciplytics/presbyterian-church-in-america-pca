@@ -193,12 +193,13 @@ with compare_tab:
             data['Value'] = to_numeric(data['VALUE'])
             data = data.rename(columns={'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
             
-            data = data.pivot_table('Value', ['Area'], 'MEASUREMENT_TYPE').reset_index()
+            data = data.pivot_table('Value', ['Area', 'Variable'], 'MEASUREMENT_TYPE').reset_index()
     
             bar = alt.Chart(data).mark_errorbar(ticks=True).encode(
                 y=alt.Y("Estimate:Q").scale(zero=False).title(""),
                 yError=("Margin of Error:Q"),
                 x=alt.X("Area:N"),
+                column='Variable:N',
                 color=alt.value("#4682b4"),
                 )
     
@@ -208,6 +209,7 @@ with compare_tab:
             ).encode(
                 alt.Y("Estimate:Q"),
                 alt.X("Area:N"),
+                column='Variable:N'
             )
             st.altair_chart(bar+point)
 
@@ -218,6 +220,14 @@ with compare_tab:
         st.caption('Click here to learn more about this metric: [Gini Index](https://www.census.gov/topics/income-poverty/income-inequality/about/metrics/gini-index.html)')
         
         get_analysis(acs_df_comp, ['B19083_001M_5YR', 'B19083_001E_5YR'])
+
+        st.markdown('\n\n')
+        st.markdown('##### Median Household Incomes')
+        
+        get_analysis(acs_df_comp, ['B19202_001E_5YR_2023','B19202_001M_5YR_2023','B19013_001E_5YR_2023','B19013_001M_5YR_2023','B19113_001E_5YR_2023','B19113_001M_5YR_2023'])
+
+
+        
 
         
         st.dataframe(acs_df_comp)
