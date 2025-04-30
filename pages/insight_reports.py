@@ -196,7 +196,7 @@ with compare_tab:
             data = data.pivot_table('Value', ['Area'], 'MEASUREMENT_TYPE').reset_index()
     
             bar = alt.Chart(data).mark_errorbar(ticks=True).encode(
-                y=alt.Y("Estimate:Q").scale(zero=True).title("Value"),
+                y=alt.Y("Estimate:Q").scale(zero=False).title(""),
                 yError=("Margin of Error:Q"),
                 x=alt.X("Area:N"),
                 color=alt.value("#4682b4"),
