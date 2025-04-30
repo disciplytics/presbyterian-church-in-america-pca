@@ -209,7 +209,7 @@ with compare_tab:
                 alt.Y("Estimate:Q"),
                 alt.X("Variable:N"),
             )
-            st.altair_chart(alt.layer(point, bar, data=data).facet(column='Area:N'))
+            st.altair_chart(alt.layer(point, data=data).facet(column='Area:N'))
 
 
         st.markdown('### Income Reports')
