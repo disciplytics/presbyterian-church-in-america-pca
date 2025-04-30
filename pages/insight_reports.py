@@ -20,6 +20,23 @@ conn = st.connection("snowflake")
 
 single_tab, compare_tab = st.tabs(['Single Area', 'Compare Two Areas'])
 
+
+def analysis_layout(data):
+    st.markdown('### Income Reports')
+    st.markdown('\n\n')
+    st.markdown('##### Income Inequality: Gini Index')
+    st.caption('Click here to learn more about this metric: [Gini Index](https://www.census.gov/topics/income-poverty/income-inequality/about/metrics/gini-index.html)')
+        
+    get_analysis(data, ['B19083_001M_5YR', 'B19083_001E_5YR'])
+
+    st.markdown('\n\n')
+    st.markdown('##### Household Income')
+        
+    get_analysis(data, ['B19202_001E_5YR_2023','B19202_001M_5YR_2023','B19013_001E_5YR_2023','B19013_001M_5YR_2023','B19113_001E_5YR_2023','B19113_001M_5YR_2023'])
+        
+    st.dataframe(data)
+
+
 with single_tab:
     
     try:
@@ -69,8 +86,8 @@ with single_tab:
         r = pdk.Deck(layers=[ geojson_layer ], map_style=None, initial_view_state=INITIAL_VIEW_STATE)
         # display the pydeck
         st.pydeck_chart(r)
-        
-        st.dataframe(acs_df)
+
+        analysis_layout(acs_df)
     except:
         st.write('Make the above selections.')
 
@@ -185,21 +202,7 @@ with compare_tab:
                 # display the pydeck
             st.pydeck_chart(r_second)
 
-
-        st.markdown('### Income Reports')
-        st.markdown('\n\n')
-        st.markdown('##### Income Inequality: Gini Index')
-        st.caption('Click here to learn more about this metric: [Gini Index](https://www.census.gov/topics/income-poverty/income-inequality/about/metrics/gini-index.html)')
-        
-        get_analysis(acs_df_comp, ['B19083_001M_5YR', 'B19083_001E_5YR'])
-
-        st.markdown('\n\n')
-        st.markdown('##### Household Income')
-        
-        get_analysis(acs_df_comp, ['B19202_001E_5YR_2023','B19202_001M_5YR_2023','B19013_001E_5YR_2023','B19013_001M_5YR_2023','B19113_001E_5YR_2023','B19113_001M_5YR_2023'])
+        analysis_layout(acs_df_comp)
 
 
-        
-
-        
-        st.dataframe(acs_df_comp)
+    
