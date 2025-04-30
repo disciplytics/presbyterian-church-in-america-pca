@@ -17,15 +17,15 @@ def analysis_layout(data):
             data = data.dropna(subset=['Estimate'])
                       
             error = alt.Chart().mark_errorbar(ticks=True).encode(
-                      y=alt.Y("Estimate:Q").scale(zero=False).title(""),
-                      yError=("Margin of Error:Q"),
-                      x=alt.X("Variable:N", axis=alt.Axis(labelLimit=300)).title(""),
+                      x=alt.X("Estimate:Q").scale(zero=False).title(""),
+                      xError=("Margin of Error:Q"),
+                      y=alt.Y("Variable:N", axis=alt.Axis(labelLimit=300)).title(""),
                       color=alt.value("#4682b4")
                   )
           
             bar = alt.Chart().mark_point(filled=True,color="black").encode(
-                      alt.Y("Estimate:Q"),
-                      alt.X("Variable:N", axis=alt.Axis(labelLimit=300)).title(""),
+                      alt.X("Estimate:Q"),
+                      alt.Y("Variable:N", axis=alt.Axis(labelLimit=300)).title(""),
                   ).properties(width=300,height=200)
       
             st.altair_chart(alt.layer(bar, error, data=data).facet(column='Area:N'))
