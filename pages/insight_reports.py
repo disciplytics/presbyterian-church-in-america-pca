@@ -215,6 +215,7 @@ with compare_tab:
         st.markdown('### Income Reports')
         st.markdown('\n\n')
         st.markdown('##### Income Inequality: Gini Index')
+        st.caption('Click here to learn more about this metric: [Gini Index](https://www.census.gov/topics/income-poverty/income-inequality/about/metrics/gini-index.html)')
         
         get_analysis(acs_df_comp, ['B19083_001M_5YR', 'B19083_001E_5YR'])
 
