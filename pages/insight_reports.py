@@ -196,9 +196,9 @@ with compare_tab:
             data = data.pivot_table('Value', ['Area'], 'MEASUREMENT_TYPE').reset_index()
     
             bar = alt.Chart(data).mark_errorbar(ticks=True).encode(
-                x=alt.X("Estimate:Q").scale(zero=False).title("Value"),
-                xError=("Margin of Error:Q"),
-                y=alt.Y("Area:N"),
+                y=alt.Y("Estimate:Q").scale(zero=True).title("Value"),
+                yError=("Margin of Error:Q"),
+                x=alt.X("Area:N"),
                 color=alt.value("#4682b4"),
                 )
     
@@ -206,8 +206,8 @@ with compare_tab:
                 filled=True,
                 color="black"
             ).encode(
-                alt.X("Estimate:Q"),
-                alt.Y("Area:N"),
+                alt.Y("Estimate:Q"),
+                alt.X("Area:N"),
             )
             st.altair_chart(bar+point)
 
