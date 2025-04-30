@@ -121,22 +121,23 @@ with compare_tab:
                 
             return conn.query(sql, ttl=0, show_spinner = False)
 
-        
+    except:
+        st.write('Make the above selections.') 
         # load the data
-        if first_geo_rel_sel and second_geo_rel_sel and first_geo_name_sel and second_geo_name_sel:
-            acs_df_comp = load_acs_data(
+    if first_geo_rel_sel and second_geo_rel_sel and first_geo_name_sel and second_geo_name_sel:
+        acs_df_comp = load_acs_data(
                             first_geo_rel_sel,
                             second_geo_rel_sel,
                             first_geo_name_sel, 
                             second_geo_name_sel
                                     )
 
-            with first:
+        with first:
                 # convert to dictionary
-                geojson_dict_first = loads(acs_df_comp[acs_df_comp['GEO_NAME'] == first_geo_name_sel].head(1)['GEOJSON_VALUES'][0])
+            geojson_dict_first = loads(acs_df_comp[acs_df_comp['GEO_NAME'] == first_geo_name_sel].head(1)['GEOJSON_VALUES'][0])
                     
                 # create the GeoJson layer
-                geojson_layer_first = pdk.Layer(
+            geojson_layer_first = pdk.Layer(
                         "GeoJsonLayer",
                         geojson_dict_first,
                         opacity=0.3,
@@ -149,19 +150,19 @@ with compare_tab:
                         get_line_color=[255, 255, 255],
                     )
                     
-                INITIAL_VIEW_STATE_FIRST = pdk.ViewState(latitude=geojson_dict_first['coordinates'][0][0][1], longitude=geojson_dict_first['coordinates'][0][0][0], zoom=9, max_zoom=16, pitch=45, bearing=0)
+            INITIAL_VIEW_STATE_FIRST = pdk.ViewState(latitude=geojson_dict_first['coordinates'][0][0][1], longitude=geojson_dict_first['coordinates'][0][0][0], zoom=9, max_zoom=16, pitch=45, bearing=0)
                     
                 # create the pydeck using the geojson layer
-                r_first = pdk.Deck(layers=[ geojson_layer_first ], map_style=None, initial_view_state=INITIAL_VIEW_STATE_FIRST)
+            r_first = pdk.Deck(layers=[ geojson_layer_first ], map_style=None, initial_view_state=INITIAL_VIEW_STATE_FIRST)
                 # display the pydeck
-                st.pydeck_chart(r_first)
+            st.pydeck_chart(r_first)
 
-            with second:
+        with second:
                 # convert to dictionary
-                geojson_dict_second = loads(acs_df_comp[acs_df_comp['GEO_NAME'] == second_geo_name_sel].head(1)['GEOJSON_VALUES'][0])
+            geojson_dict_second = loads(acs_df_comp[acs_df_comp['GEO_NAME'] == second_geo_name_sel].head(1)['GEOJSON_VALUES'][0])
                     
                 # create the GeoJson layer
-                geojson_layer_second = pdk.Layer(
+            geojson_layer_second = pdk.Layer(
                         "GeoJsonLayer",
                         geojson_dict_second,
                         opacity=0.3,
@@ -174,14 +175,13 @@ with compare_tab:
                         get_line_color=[255, 255, 255],
                     )
                     
-                INITIAL_VIEW_STATE_SECOND = pdk.ViewState(latitude=geojson_dict_second['coordinates'][0][0][1], longitude=geojson_dict_second['coordinates'][0][0][0], zoom=9, max_zoom=16, pitch=45, bearing=0)
+            INITIAL_VIEW_STATE_SECOND = pdk.ViewState(latitude=geojson_dict_second['coordinates'][0][0][1], longitude=geojson_dict_second['coordinates'][0][0][0], zoom=9, max_zoom=16, pitch=45, bearing=0)
                     
                 # create the pydeck using the geojson layer
-                r_second = pdk.Deck(layers=[ geojson_layer_second ], map_style=None, initial_view_state=INITIAL_VIEW_STATE_SECOND)
+            r_second = pdk.Deck(layers=[ geojson_layer_second ], map_style=None, initial_view_state=INITIAL_VIEW_STATE_SECOND)
                 # display the pydeck
-                st.pydeck_chart(r_second)
+            st.pydeck_chart(r_second)
         
             st.dataframe(acs_df_comp)
     
-    except:
-        st.write('Make the above selections.') 
+    
