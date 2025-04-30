@@ -56,6 +56,9 @@ def analysis_layout(data):
                         ).properties(width=300,height=200)
             
                   st.altair_chart(alt.layer(bar, error, data=data).facet(row='Area:N'))
+
+      st.dataframe(data)
+      
       st.markdown('### Income Reports')
       st.markdown('\n\n')
       st.markdown('##### Income Inequality: Gini Index')
@@ -74,4 +77,4 @@ def analysis_layout(data):
       get_analysis(data, ['B19058_001E_5YR','B19058_001M_5YR','B19058_002E_5YR','B19058_002M_5YR'], False)
 
       
-      st.dataframe(data)
+      
