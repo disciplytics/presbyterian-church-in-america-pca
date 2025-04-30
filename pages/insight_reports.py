@@ -202,19 +202,19 @@ with compare_tab:
             error = alt.Chart().mark_errorbar(ticks=True).encode(
                 y=alt.Y("Estimate:Q").scale(zero=False).title(""),
                 yError=("Margin of Error:Q"),
-                x=alt.X("Variable:N"),
+                x=alt.X("Variable:N").title(""),
                 color=alt.value("#4682b4")
             )
     
             bar = alt.Chart().mark_point(filled=True,color="black").encode(
                 alt.Y("Estimate:Q"),
-                alt.X("Variable:N"),
+                alt.X("Variable:N").title(""),
             ).properties(width=300,height=150)
 
 
             
             
-            st.altair_chart(alt.layer(bar, error, data=data).facet(facet=alt.Facet('Area:N', title=None)))
+            st.altair_chart(alt.layer(bar, error, data=data).facet(facet=alt.Facet('Area:N', title='')))
 
 
         st.markdown('### Income Reports')
