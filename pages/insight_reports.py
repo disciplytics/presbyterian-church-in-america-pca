@@ -185,7 +185,7 @@ with compare_tab:
 
         st.bar_chart(
             acs_df_comp, 
-            y = 'VALUE', x = 'VARIABLE_NAME', 
+            x = 'VALUE', y = 'VARIABLE_NAME', 
             x_label = 'Value', y_label = 'Variable',
             color = 'GEO_NAME', horizontal = False)
         st.dataframe(acs_df_comp)
