@@ -207,8 +207,9 @@ with compare_tab:
             alt.X("Estimate:Q"),
             alt.Y("Area:N")
         )
-    
-        st.altair_chart( point + bar)
+
+        c = point + bar
+        st.altair_chart(c)
 
         
         st.dataframe(acs_df_comp)
