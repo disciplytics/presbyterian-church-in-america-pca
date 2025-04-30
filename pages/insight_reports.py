@@ -206,10 +206,13 @@ with compare_tab:
                 color=alt.value("#4682b4")
             )
     
-            bar = alt.Chart().mark_bar().encode(
+            bar = alt.Chart().mark_point(filled=True,color="black").encode(
                 alt.Y("Estimate:Q"),
                 alt.X("Variable:N"),
             ).properties(width=300,height=150)
+
+
+            
             
             st.altair_chart(alt.layer(bar, error, data=data).facet(column='Area:N'))
 
