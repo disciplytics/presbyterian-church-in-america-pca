@@ -183,11 +183,14 @@ with compare_tab:
             st.pydeck_chart(r_second)
 
 
+        acs_df_comp['Value'] = pd.to_numeric(acs_df_comp['VALUE'])
+        acs_df_comp = acs_df_comp.rename({'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
+        
         st.bar_chart(
             acs_df_comp, 
-            x = 'VALUE', y = 'VARIABLE_NAME', 
+            x = 'Value', y = 'Variable', 
             x_label = 'Value', y_label = 'Variable',
-            color = 'GEO_NAME', horizontal = False, stack =False)
+            color = 'Area', horizontal = False, stack =False)
         st.dataframe(acs_df_comp)
     
     
