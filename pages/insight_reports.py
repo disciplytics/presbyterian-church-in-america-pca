@@ -195,21 +195,18 @@ with compare_tab:
             
             data = data.pivot_table('Value', ['Area', 'Variable'], 'MEASUREMENT_TYPE').reset_index()
     
-            bar = alt.Chart().mark_errorbar(ticks=True).encode(
+            error = alt.Chart().mark_errorbar(ticks=True).encode(
                 y=alt.Y("Estimate:Q").scale(zero=False).title(""),
                 yError=("Margin of Error:Q"),
                 x=alt.X("Variable:N"),
                 color=alt.value("#4682b4")
             )
     
-            point = alt.Chart().mark_point(
-                filled=True,
-                color="black"
-            ).encode(
+            bar = alt.Chart().mark_bar().encode(
                 alt.Y("Estimate:Q"),
                 alt.X("Variable:N"),
             )
-            st.altair_chart(alt.layer(point, data=data).facet(column='Area:N'))
+            st.altair_chart(alt.layer(bar, data=data).facet(column='Area:N'))
 
 
         st.markdown('### Income Reports')
