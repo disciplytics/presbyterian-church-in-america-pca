@@ -1,8 +1,6 @@
 import streamlit as st
 import pydeck as pdk
 from json import loads
-from pandas import to_numeric, pivot_table
-import altair as alt
 
 from utils.get_analysis import get_analysis
 
