@@ -91,21 +91,21 @@ with compare_tab:
             if first_geo_sel:
                 # get geographical names
                 first_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{first_geo_sel}' AND RELATED_GEO_NAME = '{first_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-                first_geo_name_sel = st.selectbox(f"Base {first_geo_sel} Selection", first_geo_name_options['GEO_NAME'], index = 0)
+                first_geo_name_sel = st.selectbox(f"Base {first_geo_sel} Selection: ", first_geo_name_options['GEO_NAME'], index = 0)
         
         with second:
             # get geographical rel levels
             second_geo_rel_options = conn.query(f"SELECT DISTINCT RELATED_GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA ORDER BY RELATED_GEO_NAME ASC;", ttl=0, show_spinner = False)
-            second_geo_rel_sel = st.pills("Select Compare State", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", key =5,  default = 'Ohio')
+            second_geo_rel_sel = st.pills("Select Compare State:", second_geo_rel_options['RELATED_GEO_NAME'], selection_mode="single", key =5,  default = 'Ohio')
                 
             # get geographical levels
             second_geo_options = conn.query("SELECT DISTINCT LEVEL FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA;", ttl=0, show_spinner = False)
-            second_geo_sel = st.pills("Select Compare Geographical Levels:", second_geo_options['LEVEL'], selection_mode="single", key = 6,  default = 'County')
+            second_geo_sel = st.pills("Select Compare Geographical Levels: ", second_geo_options['LEVEL'], selection_mode="single", key = 6,  default = 'County')
                 
             if second_geo_sel:
                 # get geographical names
                 second_geo_name_options = conn.query(f"SELECT DISTINCT GEO_NAME FROM  DISCIPLYTICS_APP.COMMUNITY_DATA.ACS_5YR_DATA WHERE LEVEL = '{second_geo_sel}' AND RELATED_GEO_NAME = '{second_geo_rel_sel}' ORDER BY GEO_NAME ASC;", ttl=0, show_spinner = False)
-                second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection", second_geo_name_options['GEO_NAME'], index = 1)
+                second_geo_name_sel = st.selectbox(f"Compare {second_geo_sel} Selection: ", second_geo_name_options['GEO_NAME'], index = 1)
         
         # connect to snowflake
         @st.cache_data(show_spinner=f"Generating comparative analysis for {first_geo_name_sel}, {first_geo_rel_sel} and {second_geo_name_sel}, {second_geo_rel_sel}.")
@@ -194,7 +194,7 @@ with compare_tab:
         acs_df_comp['Estimate (- Margin of Error)'] = acs_df_comp['Estimate'] - acs_df_comp['Margin of Error']
 
         bar = alt.Chart(acs_df_comp).mark_errorbar().encode(
-            x=alt.X("Estimate:Q").scale(zero=False).title("Value"),
+            x=alt.X("Estimate:Q").scale(zero=True).title("Value"),
             xError=("'Margin of Error':Q"),
             y=alt.Y("Area:N"),
             )
@@ -206,7 +206,7 @@ with compare_tab:
             alt.X("Estimate:Q"),
             alt.Y("Area:N"),
         )
-        st.altair_chart(point + bar)
+        st.altair_chart(bar)
 
         
         st.dataframe(acs_df_comp)
