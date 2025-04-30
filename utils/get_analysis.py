@@ -3,9 +3,9 @@ def analysis_layout(data):
       import altair as alt
       import streamlit as st
 
-      def get_analysis(data, variables, vertical):
+      def get_analysis(data, variables, horizontal):
             ''' pass the dataframe with the analysis data and the variables to do the analysis on. '''
-            if vertical:
+            if horizontal:
                   data = data[data['VARIABLE'].isin(variables)]
                         
                   data['Value'] = to_numeric(data['VALUE'])
