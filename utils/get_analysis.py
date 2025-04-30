@@ -25,8 +25,8 @@ def analysis_layout(data):
           
             bar = alt.Chart().mark_point(filled=True,color="black").encode(
                       alt.Y("Estimate:Q"),
-                      alt.X("Variable:N", axis=alt.Axis(labelAngle=45, labelLimit=400)).title(""),
-                  ).properties(width=300,height=150)
+                      alt.X("Variable:N", axis=alt.Axis(labelAngle=90, labelLimit=400)).title(""),
+                  ).properties(width=300,height=200)
       
             st.altair_chart(alt.layer(bar, error, data=data).facet(column='Area:N'))
             
