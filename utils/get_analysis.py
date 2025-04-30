@@ -35,7 +35,7 @@ def analysis_layout(data):
                   data = data[data['VARIABLE'].isin(variables)]
                   
                   data['Value'] = to_numeric(data['VALUE'])
-                  data = data.rename(columns={'SERIES_LEVEL_1': 'Variable', 'GEO_NAME': 'Area'})
+                  data = data.rename(columns={'SERIES_TYPE': 'Variable', 'GEO_NAME': 'Area'})
                         
                   data = data.pivot_table('Value', ['Area', 'Variable'], 'MEASUREMENT_TYPE').reset_index()
             
