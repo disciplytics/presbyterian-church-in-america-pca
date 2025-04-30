@@ -205,7 +205,7 @@ with compare_tab:
             bar = alt.Chart().mark_bar().encode(
                 alt.Y("Estimate:Q"),
                 alt.X("Variable:N"),
-            ).properties(width=800,height=300)
+            ).properties(width=400,height=150)
             
             st.altair_chart(alt.layer(bar, data=data).facet(column='Area:N'))
 
