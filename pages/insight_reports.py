@@ -200,6 +200,7 @@ with compare_tab:
                 yError=("Margin of Error:Q"),
                 x=alt.X("Variable:N"),
                 color=alt.value("#4682b4"),
+                facet=alt.Facet('Area:N').columns(2)
                 )
     
             point = alt.Chart().mark_point(
@@ -209,7 +210,7 @@ with compare_tab:
                 alt.Y("Estimate:Q"),
                 alt.X("Variable:N"),
             )
-            st.altair_chart(alt.layer(bar, point, data=data).facet(column='Area'))
+            st.altair_chart(bar+point)
 
 
         st.markdown('### Income Reports')
