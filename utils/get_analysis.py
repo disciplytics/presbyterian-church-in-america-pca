@@ -61,11 +61,11 @@ def analysis_layout(data):
       st.markdown('##### Income Inequality: Gini Index')
       st.caption('Click here to learn more about this metric: [Gini Index](https://www.census.gov/topics/income-poverty/income-inequality/about/metrics/gini-index.html)')
         
-      get_analysis(data, ['B19083_001M_5YR', 'B19083_001E_5YR'], False)
+      get_analysis(data, ['B19083_001M_5YR', 'B19083_001E_5YR'], True)
 
       st.markdown('\n\n')
       st.markdown('##### Household Income')
         
-      get_analysis(data, ['B19202_001E_5YR_2023','B19202_001M_5YR_2023','B19013_001E_5YR_2023','B19013_001M_5YR_2023','B19113_001E_5YR_2023','B19113_001M_5YR_2023'], True)
+      get_analysis(data, ['B19202_001E_5YR_2023','B19202_001M_5YR_2023','B19013_001E_5YR_2023','B19013_001M_5YR_2023','B19113_001E_5YR_2023','B19113_001M_5YR_2023'], False)
         
       st.dataframe(data)
