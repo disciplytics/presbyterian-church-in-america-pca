@@ -190,16 +190,13 @@ with compare_tab:
         acs_df_comp = acs_df_comp.rename(columns={'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
         acs_df_comp = acs_df_comp.pivot_table('Value', ['Area'], 'MEASUREMENT_TYPE').reset_index()
 
-        acs_df_comp['Estimate'] = to_numeric(acs_df_comp['Estimate'])
-        acs_df_comp['Margin of Error'] = to_numeric(acs_df_comp['Margin of Error'])
-
         acs_df_comp['Estimate (+ Margin of Error)'] = acs_df_comp['Estimate'] + acs_df_comp['Margin of Error']
         acs_df_comp['Estimate (- Margin of Error)'] = acs_df_comp['Estimate'] - acs_df_comp['Margin of Error']
 
         bar = alt.Chart(acs_df_comp).mark_errorbar().encode(
-            x=("Estimate:Q").scale(zero=False).title("Value"),
+            x=alt.X("Estimate:Q").scale(zero=False).title("Value"),
             xError=("'Margin of Error':Q"),
-            y=("Area:N"),
+            y=alt.Y("Area:N"),
             )
         
         point = alt.Chart(acs_df_comp).mark_point(
