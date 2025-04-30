@@ -193,15 +193,16 @@ with compare_tab:
         acs_df_comp['Estimate (+ Margin of Error)'] = acs_df_comp['Estimate'] + acs_df_comp['Margin of Error']
         acs_df_comp['Estimate (- Margin of Error)'] = acs_df_comp['Estimate'] - acs_df_comp['Margin of Error']
 
-        bar = alt.Chart(acs_df_comp).mark_errorbar().encode(
+        bar = alt.Chart(acs_df_comp).mark_errorbar(ticks=True).encode(
             x=alt.X("Estimate:Q").scale(zero=False).title("Value"),
             xError=("Margin of Error:Q"),
             y=alt.Y("Area:N"),
+            color=alt.value("#4682b4"),
             )
 
         point = alt.Chart(acs_df_comp).mark_point(
             filled=True,
-            color="blue"
+            color="black"
         ).encode(
             alt.X("Estimate:Q"),
             alt.Y("Area:N"),
