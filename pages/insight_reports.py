@@ -1,7 +1,8 @@
 import streamlit as st
 import pydeck as pdk
 from json import loads
-from pandas import to_numeric
+from pandas import to_numeric, pivot_table
+import altair as alt
 
 # set page configs
 st.set_page_config(
@@ -186,13 +187,40 @@ with compare_tab:
 
 
         acs_df_comp['Value'] = to_numeric(acs_df_comp['VALUE'])
+        #acs_df_comp['Upper'] = 
+
+        st.dataframe(acs_df_comp.pivot_table('Value', ['Area'], 'MEASUREMENT_TYPE'))
+
+        '''
         acs_df_comp = acs_df_comp.rename(columns={'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
+
+
+        bar = alt.Chart(acs_df_comp).mark_errorbar().encode(
+        alt.X("upper_yield:Q").scale(zero=False).title("yield"),
+        alt.X2("lower_yield:Q"),
+        alt.Y("variety:N"),
+        )
         
+        point = alt.Chart(source).mark_point(
+            filled=True,
+            color="black"
+        ).encode(
+            alt.X("center:Q"),
+            alt.Y("variety:N")
+        )
+    
+        st.altair_chart( point + bar)
+
+    
+   
+
+
         st.bar_chart(
             acs_df_comp, 
             x = 'Value', y = 'Variable', 
             x_label = 'Value', y_label = 'Variable',
             color = 'Area', horizontal = False, stack =False)
+        
         st.dataframe(acs_df_comp)
     
-    
+        '''
