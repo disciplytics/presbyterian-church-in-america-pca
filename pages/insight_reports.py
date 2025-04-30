@@ -134,7 +134,7 @@ with compare_tab:
 
         with first:
                 # convert to dictionary
-            geojson_dict_first = loads(acs_df_comp[acs_df_comp['GEO_NAME'] == first_geo_name_sel].head(1)['GEOJSON_VALUES'][0])
+            geojson_dict_first = loads(acs_df_comp[acs_df_comp['GEO_NAME'] == first_geo_name_sel].head(1)['GEOJSON_VALUES'].reset_index(drop=True)[0])
                     
                 # create the GeoJson layer
             geojson_layer_first = pdk.Layer(
@@ -159,7 +159,7 @@ with compare_tab:
 
         with second:
                 # convert to dictionary
-            geojson_dict_second = loads(acs_df_comp[acs_df_comp['GEO_NAME'] == second_geo_name_sel].head(1)['GEOJSON_VALUES'][0])
+            geojson_dict_second = loads(acs_df_comp[acs_df_comp['GEO_NAME'] == second_geo_name_sel].head(1)['GEOJSON_VALUES'].reset_index(drop=True)[0])
                     
                 # create the GeoJson layer
             geojson_layer_second = pdk.Layer(
