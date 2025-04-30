@@ -194,6 +194,8 @@ with compare_tab:
             data = data.rename(columns={'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
             
             data = data.pivot_table('Value', ['Area', 'Variable'], 'MEASUREMENT_TYPE').reset_index()
+
+            st.dataframe(data)
     
             error = alt.Chart().mark_errorbar(ticks=True).encode(
                 y=alt.Y("Estimate:Q").scale(zero=False).title(""),
