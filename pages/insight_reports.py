@@ -187,7 +187,7 @@ with compare_tab:
             acs_df_comp, 
             x = 'VALUE', y = 'VARIABLE_NAME', 
             x_label = 'Value', y_label = 'Variable',
-            color = 'GEO_NAME', horizontal = True)
+            color = 'GEO_NAME', horizontal = False, stack =False)
         st.dataframe(acs_df_comp)
     
     
