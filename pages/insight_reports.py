@@ -186,7 +186,7 @@ with compare_tab:
 
 
         acs_df_comp['Value'] = to_numeric(acs_df_comp['VALUE'])
-        acs_df_comp = acs_df_comp.rename({'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
+        acs_df_comp = acs_df_comp.rename(columns={'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
         
         st.bar_chart(
             acs_df_comp, 
