@@ -202,13 +202,13 @@ with compare_tab:
             error = alt.Chart().mark_errorbar(ticks=True).encode(
                 y=alt.Y("Estimate:Q").scale(zero=False).title(""),
                 yError=("Margin of Error:Q"),
-                x=alt.X("Variable:N", axis=alt.Axis(labelAngle=-45, labelLimit=200)).title(""),
+                x=alt.X("Variable:N", axis=alt.Axis(labelAngle=-45, labelLimit=400)).title(""),
                 color=alt.value("#4682b4")
             )
     
             bar = alt.Chart().mark_point(filled=True,color="black").encode(
                 alt.Y("Estimate:Q"),
-                alt.X("Variable:N", axis=alt.Axis(labelAngle=-45, labelLimit=200)).title(""),
+                alt.X("Variable:N", axis=alt.Axis(labelAngle=-45, labelLimit=400)).title(""),
             ).properties(width=300,height=250)
 
 
