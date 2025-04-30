@@ -193,7 +193,7 @@ with compare_tab:
             data['Value'] = to_numeric(data['VALUE'])
             data = data.rename(columns={'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
             
-            data = data.pivot_table('Value', ['Area'], 'MEASUREMENT_TYPE').reset_index()
+            data = data.pivot_table('Value', ['Area', 'Variable'], 'MEASUREMENT_TYPE').reset_index()
 
             st.dataframe(data)
     
