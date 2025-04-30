@@ -187,12 +187,13 @@ with compare_tab:
 
 
         acs_df_comp['Value'] = to_numeric(acs_df_comp['VALUE'])
+        acs_df_comp = acs_df_comp.rename(columns={'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
         #acs_df_comp['Upper'] = 
 
         st.dataframe(acs_df_comp.pivot_table('Value', ['Area'], 'MEASUREMENT_TYPE'))
 
         '''
-        acs_df_comp = acs_df_comp.rename(columns={'VARIABLE_NAME': 'Variable', 'GEO_NAME': 'Area'})
+        
 
 
         bar = alt.Chart(acs_df_comp).mark_errorbar().encode(
