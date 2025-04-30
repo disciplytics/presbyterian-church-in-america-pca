@@ -205,7 +205,8 @@ with compare_tab:
             bar = alt.Chart().mark_bar().encode(
                 alt.Y("Estimate:Q"),
                 alt.X("Variable:N"),
-            )
+            ).properties(width=800,height=300)
+            
             st.altair_chart(alt.layer(bar, data=data).facet(column='Area:N'))
 
 
@@ -217,7 +218,7 @@ with compare_tab:
         get_analysis(acs_df_comp, ['B19083_001M_5YR', 'B19083_001E_5YR'])
 
         st.markdown('\n\n')
-        st.markdown('##### Median Household Incomes')
+        st.markdown('##### Household Income')
         
         get_analysis(acs_df_comp, ['B19202_001E_5YR_2023','B19202_001M_5YR_2023','B19013_001E_5YR_2023','B19013_001M_5YR_2023','B19113_001E_5YR_2023','B19113_001M_5YR_2023'])
 
