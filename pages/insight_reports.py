@@ -181,7 +181,9 @@ with compare_tab:
             r_second = pdk.Deck(layers=[ geojson_layer_second ], map_style=None, initial_view_state=INITIAL_VIEW_STATE_SECOND)
                 # display the pydeck
             st.pydeck_chart(r_second)
-        
-            st.dataframe(acs_df_comp)
+
+
+        st.bar_chart(acs_df_comp, x = 'VALUE', y = 'VARIABLE_NAME', color = 'GEO_NAME', horizontal = True)
+        st.dataframe(acs_df_comp)
     
     
