@@ -183,7 +183,11 @@ with compare_tab:
             st.pydeck_chart(r_second)
 
 
-        st.bar_chart(acs_df_comp, x = 'VALUE', y = 'VARIABLE_NAME', color = 'GEO_NAME', horizontal = True)
+        st.bar_chart(
+            acs_df_comp, 
+            x = 'VALUE', y = 'VARIABLE_NAME', 
+            x_label = 'Value', y_label = 'Variable',
+            color = 'GEO_NAME', horizontal = False)
         st.dataframe(acs_df_comp)
     
     
