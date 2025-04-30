@@ -55,7 +55,7 @@ def analysis_layout(data):
                             alt.Y("Variable:N", axis=alt.Axis(labelLimit=300)).title(""),
                         ).properties(width=300,height=200)
             
-                  st.altair_chart(alt.layer(bar, error, data=data).facet(column='Area:N'))
+                  st.altair_chart(alt.layer(bar, error, data=data).facet(row='Area:N'))
       st.markdown('### Income Reports')
       st.markdown('\n\n')
       st.markdown('##### Income Inequality: Gini Index')
