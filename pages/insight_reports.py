@@ -209,7 +209,7 @@ with compare_tab:
             bar = alt.Chart().mark_point(filled=True,color="black").encode(
                 alt.Y("Estimate:Q"),
                 alt.X("Variable:N", axis=alt.Axis(labelAngle=-45)).title(""),
-            ).properties(width=300,height=150)
+            ).properties(width=500,height=150)
 
 
             
