@@ -198,22 +198,20 @@ with compare_tab:
             data['Margin of Error'] = data['Margin of Error'].fillna(method='bfill')
 
             data = data.dropna(subset=['Estimate'])
-            
-            st.dataframe(data)
-    
+                
             error = alt.Chart().mark_errorbar(ticks=True).encode(
                 y=alt.Y("Estimate:Q").scale(zero=False).title(""),
                 yError=("Margin of Error:Q"),
-                x=alt.X("Area:N"),
+                x=alt.X("Variable:N"),
                 color=alt.value("#4682b4")
             )
     
             bar = alt.Chart().mark_bar().encode(
                 alt.Y("Estimate:Q"),
-                alt.X("Area:N"),
+                alt.X("Variable:N"),
             ).properties(width=300,height=150)
             
-            st.altair_chart(alt.layer(bar, error, data=data))
+            st.altair_chart(alt.layer(bar, error, data=data).facet(column='Area:N'))
 
 
         st.markdown('### Income Reports')
