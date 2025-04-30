@@ -210,16 +210,5 @@ with compare_tab:
     
         st.altair_chart( point + bar)
 
-    
-   
-
-
-        st.bar_chart(
-            acs_df_comp, 
-            x = 'Value', y = 'Variable', 
-            x_label = 'Value', y_label = 'Variable',
-            color = 'Area', horizontal = False, stack =False)
         
         st.dataframe(acs_df_comp)
-    
-        '''
