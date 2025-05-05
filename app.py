@@ -14,11 +14,19 @@ dashreport_page = st.Page(
   default=False
 )
 
+map_page = st.Page(
+  'pages/pca_church_map.py', 
+  title = 'PCA Churches Map', 
+  icon=":material/map:", 
+  default=False
+)
+
+
 # navigation 
 pg = st.navigation(
         {
             "": [home_page],
-            "Data Reports": [dashreport_page],
+            "Data Reports": [dashreport_page, map_page],
           
         }
     )
