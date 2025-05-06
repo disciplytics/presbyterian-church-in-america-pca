@@ -18,7 +18,7 @@ def disbursements(df):
           'TOTAL_ALL_DISBURSEMENTS': 'TotalAllDisbursements'
   }
                 )
-
+  st.dataframe(df)
   df['Year'] = df['Year'].astype(str)
   
   totals_df = df[['Year', 'TotalBenevolentDisbursements', 'TotalAllDisbursements']].melt(id_vars=['Year'], var_name='Metric', value_name='Dollars')
