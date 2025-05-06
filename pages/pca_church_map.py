@@ -35,7 +35,7 @@ def load_directory_data():
             'ZIP': 'Zip',
             #'GCODE',
             #'LATITUDE',
-            #'LONGITUDE'
+            #'LONGIvTUDE'
     }
 
     df = df.rename(columns = rename_dict)
@@ -44,4 +44,7 @@ def load_directory_data():
 # load the data
 directory_df = load_directory_data()
 
-st.dataframe(directory_df)
+st.map(directory_df)
+
+st.markdown('#### Church Directory')
+st.dataframe(directory_df.drop(columns=['LATITUDE', 'LONGIvTUDE']))
