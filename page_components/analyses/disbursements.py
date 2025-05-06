@@ -4,18 +4,18 @@ def disbursements(df):
   import numpy as np
 
   df = df.rename(columns = {
-          'YEAR': 'Year',
-          'ADMINISTRATION': 'Administration', 'DISCIPLESHIPMIN': 'DiscipleshipMin', 'MISSIONTONAMERICA': 'MissionToNAAmerica', 'MISSIONTOTHEWORLD': 'MissionToTheWorld', 
-          'COVENANTCOLLEGE': 'CovenantCollege', 'COVENANTSEMINARY': 'CovenantSeminary', 'RIDGEHAVEN': 'Ridgehaven', 'REFORMEDUNIVERSITYMINISTRIES': 'ReformedUniversityMinistries',
-          'PCAOFFICEBUILDING': 'PCAOfficeBuilding', 'OTHER': 'Other', 
+          'STAT_YEAR': 'Year',
+          'ADMINISTRATION': 'Administration', 'DISCIPLESHIP_MIN': 'DiscipleshipMin', 'MISSION_TO_NAMERICA': 'MissionToNAAmerica', 'MISSION_TO_THE_WORLD': 'MissionToTheWorld', 
+          'COVENANT_COLLEGE': 'CovenantCollege', 'COVENANT_SEMINARY': 'CovenantSeminary', 'RIDGE_HAVEN': 'Ridgehaven', 'REFORMED_UNIVERSITY_MINISTRIES': 'ReformedUniversityMinistries',
+          'PCA_OFFICE_BUILDING': 'PCAOfficeBuilding', 'OTHER': 'Other', 
 
-          'PRESBYTERYOPERATION': 'PresbyteryOperation', 'CHRISTIANEDUCATION': 'ChristianEducation',  'HOMEMISSIONS': 'HomeMissions', 'INTERNATIONALMISSIONS': 'InternationalMissions', 'OTHERPRESBYTERYMIN': 'OtherPresbyteryMin', 
+          'PRESBYTERY_OPERATION': 'PresbyteryOperation', 'CHRISTIAN_EDUCATION': 'ChristianEducation',  'HOME_MISSIONS': 'HomeMissions', 'INTERNATL_MISSIONS': 'InternationalMissions', 'OTHER_PRESBYTERY_MIN': 'OtherPresbyteryMin', 
 
-          'LOCALMINISTRIES': 'LocalMinistires', 'MERCYMINISTIRES': 'MercyMinistries', 'PCAINTERNATIONLMISSIONS': 'PCAInternationalMissions', 'PCAHOMEMISSION': 'PCAHomeMissions', 'NONPCAMISSION': 'NonPCAMissions',
-          'PCASCHOOLS': 'PCASchools', 'NONPCASCHOOLS': 'NonPCASchools', 'TOTALBENEVOLENTDISBURSEMENTS': 'TotalBenevolentDisbursements', 
+          'LOCAL_MINISTRIES': 'LocalMinistires', 'MERCY_MINISTIRES': 'MercyMinistries', 'PCA_INTERNATL_MISSIONS': 'PCAInternationalMissions', 'PCA_HOME_MISSION': 'PCAHomeMissions', 'NONPCA_MISSION': 'NonPCAMissions',
+          'PCASCHOOLS': 'PCASchools', 'NONPCA_SCHOOLS': 'NonPCASchools', 'TOTAL_BENEVOLENT_DISBURSEMENTS': 'TotalBenevolentDisbursements', 
 
-          'CURRENTEXPENSES': 'CurrentExpenses', 'BUILDINGFUND': 'BuildingFund',
-          'TOTALALLDISBURSEMENTS': 'TotalAllDisbursements'
+          'CURRENT_EXPENSES': 'CurrentExpenses', 'BUILDING_FUND': 'BuildingFund',
+          'TOTAL_ALL_DISBURSEMENTS': 'TotalAllDisbursements'
   }
                 )
 
@@ -34,11 +34,11 @@ def disbursements(df):
   pct_df['TotalBenevolentDisbursementsPercentage'] = np.round(pct_df['TotalBenevolentDisbursements'] / pct_df['TotalAllDisbursements'], 4) * 100
 
 
-  TOTALCONTRIB = df.groupby(['Year'])['TOTALCONTRIB'].sum().reset_index()
+  TOTALCONTRIB = df.groupby(['Year'])['TOTAL_CONTRIB'].sum().reset_index()
   COMM = df.groupby(['Year'])['COMM'].sum().reset_index()
 
-  pcg_df = pd.merge(TOTALCONTRIB, COMM, on = 'Year', how = 'left')
-  pcg_df['PerCapitaGiving'] = np.round(pcg_df['TOTALCONTRIB'] / pcg_df['COMM'], 0)
+  pcg_df = pd.merge(TOTAL_CONTRIB, COMM, on = 'Year', how = 'left')
+  pcg_df['PerCapitaGiving'] = np.round(pcg_df['TOTAL_CONTRIB'] / pcg_df['COMM'], 0)
   
   st.subheader('Total Disbursements Trends')
   st.bar_chart(totals_df.groupby(['Year', 'Metric'])['Dollars'].sum().reset_index(), x = 'Year', y = 'Dollars', color = 'Metric', stack = False)
