@@ -44,7 +44,15 @@ def load_directory_data():
 # load the data
 directory_df = load_directory_data()
 
-st.map(directory_df[directory_df['LATITUDE'].isna()==False])
+state_sel = st.selectbox('Select a State',directory_df['State'].unique())
+if state_sel:
+    map_df = directory_df[(directory_df['LATITUDE'].isna()==False) 
+                        & (directory_df['State']==state_sel)]
+else:
+    map_df = directory_df[(directory_df['LATITUDE'].isna()==False)] 
+    
+st.markdown('#### Church Map')
+st.map(map_df)
 
 st.markdown('#### Church Directory')
-st.dataframe(directory_df.drop(columns=['LATITUDE', 'LONGITUDE']))
+st.dataframe(directory_df.drop(columns=['LATITUDE', 'LONGITUDE']).set_index(['Church Name']))
