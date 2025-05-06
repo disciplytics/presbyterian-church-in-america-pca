@@ -3,8 +3,8 @@ def christian_schools(df):
   import pandas as pd
   
   df = df.rename(columns = {
-          'YEAR': 'Year',
-          'GRADESINCLUDED': 'GradeIncluded', 'TOTALENROLLMENT': 'TotalEnrollment', 
+          'STAT_YEAR': 'Year',
+          'GRADES_INCLUDED': 'GradeIncluded', 'TOTAL_ENROLLMENT': 'TotalEnrollment', 
   }
                 )
 
