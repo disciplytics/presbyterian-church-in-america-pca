@@ -3,11 +3,11 @@ def general_data(df):
   import pandas as pd
   
   df = df.rename(columns = {
-          'YEAR': 'Year',
-          'ADULTBAPT': 'AdultBapt', 'INFANTBAPT': 'InfantBapt', 
-          'RULINGELDERS': 'RulingElders', 'DEACONS': 'Deacons', 
-          'FAMILYUNITS': 'FamilyUnits', 
-          'SUNDAYSCHOOLATTEND': 'SundaySchoolAttend', 'SMALLGROUPATTEND': 'SmallGroupAttend', 'ESTMORNATTEND': 'EstMornAttend',
+          'STAT_YEAR': 'Year',
+          'ADULT_BAPT': 'AdultBapt', 'INFANT_BAPT': 'InfantBapt', 
+          'RULING_ELDERS': 'RulingElders', 'DEACONS': 'Deacons', 
+          'FAMILY_UNITS': 'FamilyUnits', 
+          'SUNDAY_SCHOOL_ATTEND': 'SundaySchoolAttend', 'SMALL_GROUP_ATTEND': 'SmallGroupAttend', 'EST_MORN_ATTEND': 'EstMornAttend',
   }
                 )
 
