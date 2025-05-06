@@ -9,3 +9,14 @@ st.set_page_config(
 # title
 st.title('PCA Church Map', help = 'All data is from [The PCA Directory](https://presbyteryportal.pcanet.org/ac/directory/)')
 st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
+
+# connect to snowflake
+@st.cache_data(show_spinner=False)
+def load_directory_data():
+    sql = 'SELECT * FROM PCA_CHURCH_DIRECTORY;'
+    conn = st.connection("snowflake")
+    return conn.query(sql, ttl=0, show_spinner = False)
+# load the data
+directory_df = load_directory_data()
+
+st.dataframe(directory_df)
