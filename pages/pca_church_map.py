@@ -55,4 +55,4 @@ st.markdown('#### Church Map')
 st.map(map_df)
 
 st.markdown('#### Church Directory')
-st.dataframe(directory_df.drop(columns=['LATITUDE', 'LONGITUDE']).set_index(['Church Name']))
+st.dataframe(map_df.drop(columns=['LATITUDE', 'LONGITUDE']).set_index(['Church Name']))
