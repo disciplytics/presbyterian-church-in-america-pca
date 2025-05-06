@@ -15,10 +15,33 @@ st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.di
 def load_directory_data():
     sql = 'SELECT * FROM PCA_CHURCH_DIRECTORY;'
     conn = st.connection("snowflake")
-    return conn.query(sql, ttl=0, show_spinner = False)
+    df =  conn.query(sql, ttl=0, show_spinner = False)
+    # rename data
+    rename_dict = {
+            'CHURCH_NAME': 'Church Name',
+            'CITY': 'City',
+            'STATE': 'State',
+            'PHONE': 'Phone',
+            'EMAIL': 'Email',
+            'WEBSITE': 'Website',
+            'PRESBYTERY': 'Presbytery',
+            'PASTOR': 'Pastor',
+            'MAILING_ADDRESS': 'Mailing Address',
+            'MEETING_ADDRESS': 'Meeting Address',
+            'FAX': 'Fax',
+            'MEETING_ADDRESSES': 'Meeting Addresses',
+            'ATTN': 'Attn',
+            'STREET': 'Street',
+            'ZIP': 'Zip',
+            #'GCODE',
+            #'LATITUDE',
+            #'LONGITUDE'
+    }
+
+    df = df.rename(columns = rename_dict)
+    return df[['Church Name', 'State', 'City', 'Pastor', 'Presbytery', 'Meeting Address', 'Website', 'LATITUDE', 'LONGITUDE']]
+    
 # load the data
 directory_df = load_directory_data()
-
-st.write(directory_df.columns)
 
 st.dataframe(directory_df)
