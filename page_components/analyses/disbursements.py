@@ -37,7 +37,7 @@ def disbursements(df):
   TOTALCONTRIB = df.groupby(['Year'])['TOTAL_CONTRIB'].sum().reset_index()
   COMM = df.groupby(['Year'])['COMM'].sum().reset_index()
 
-  pcg_df = pd.merge(TOTAL_CONTRIB, COMM, on = 'Year', how = 'left')
+  pcg_df = pd.merge(TOTALCONTRIB, COMM, on = 'Year', how = 'left')
   pcg_df['PerCapitaGiving'] = np.round(pcg_df['TOTAL_CONTRIB'] / pcg_df['COMM'], 0)
   
   st.subheader('Total Disbursements Trends')
