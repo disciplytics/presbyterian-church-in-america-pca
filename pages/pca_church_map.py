@@ -19,4 +19,6 @@ def load_directory_data():
 # load the data
 directory_df = load_directory_data()
 
+st.write(directory_df.columns)
+
 st.dataframe(directory_df)
