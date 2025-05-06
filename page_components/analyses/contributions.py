@@ -3,11 +3,11 @@ def contributions(df):
   import pandas as pd
   
   df = df.rename(columns = {
-          'YEAR': 'Year',
-          'TITHESOFFERINGS': 'TithesOfferings', 'SPECIALCAUSES': 'SpecialCauses', 
-          'BUILDINGFUNDOFFERING': 'BuildingFindOffering', 'OTHERCONTRIB': 'OtherContrib', 
-          'TOTALCONTRIB': 'TotalContrib', 
-          'OTHERINCOME': 'OtherIncome', 'TOTALCHURCHINCOME': 'TotalChurchIncome',
+          'STAT_YEAR': 'Year',
+          'TITHES_OFFERINGS': 'TithesOfferings', 'SPECIAL_CAUSES': 'SpecialCauses', 
+          'BUILDING_FUND_OFFERING': 'BuildingFindOffering', 'OTHER_CONTRIB': 'OtherContrib', 
+          'TOTAL_CONTRIB': 'TotalContrib', 
+          'OTHER_INCOME': 'OtherIncome', 'TOTAL_CHURCH_INCOME': 'TotalChurchIncome',
   }
                 )
 
