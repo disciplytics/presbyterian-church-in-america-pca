@@ -44,7 +44,7 @@ def load_directory_data():
 # load the data
 directory_df = load_directory_data()
 
-st.map(directory_df)
+st.map(directory_df[directory_df['LATITUDE'].isna()==False])
 
 st.markdown('#### Church Directory')
-st.dataframe(directory_df.drop(columns=['LATITUDE', 'LONGIvTUDE']))
+st.dataframe(directory_df.drop(columns=['LATITUDE', 'LONGITUDE']))
