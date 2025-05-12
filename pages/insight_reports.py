@@ -13,7 +13,7 @@ st.set_page_config(
 
 # title
 st.title('Community Insight Reports', help='This page offers community insights for each church. Great for ministry identification and evaluation.')
-st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/) and community data is generated from the [US Census](https://www.census.gov/en.html)')
+st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/) and community data is generated from the [US Census](https://www.census.gov/en.html).')
 
 
     
