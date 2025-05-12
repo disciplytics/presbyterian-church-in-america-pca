@@ -24,7 +24,7 @@ map_page = st.Page(
 acs_page = st.Page(
   'pages/insight_reports.py', 
   title = 'Community Insights Report', 
-  icon=":material/community:", 
+  icon=":material/communities:", 
   default=False
 )
 
