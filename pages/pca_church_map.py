@@ -1,4 +1,5 @@
 import streamlit as st
+from numpy import sort
 # set page configs
 st.set_page_config(
     page_title="PCA Churches Map",
