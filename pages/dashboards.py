@@ -15,7 +15,7 @@ st.set_page_config(
 
 # title
 st.title('PCA Dashboards', help = 'This page offers visualizations of the PCA Statistics for improved reporting')
-st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
+st.caption('Reports are maintained by [Disciplytics, LLC](https://www.disciplytics.com/).')
 
 # connect to snowflake
 @st.cache_data(show_spinner=False)
