@@ -44,7 +44,8 @@ def load_directory_data():
 # load the data
 directory_df = load_directory_data()
 
-state_sel = st.selectbox('Select a State',directory_df['State'].unique(), None)
+state_sel = st.selectbox('Select a State', sort(directory_df['State'].unique()), None)
+
 if state_sel:
     map_df = directory_df[(directory_df['LATITUDE'].isna()==False) 
                         & (directory_df['State']==state_sel)]
