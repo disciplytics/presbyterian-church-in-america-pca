@@ -9,7 +9,7 @@ st.set_page_config(
 
 # title
 st.title('PCA Church Map', help = 'All data is from [The PCA Directory](https://presbyteryportal.pcanet.org/ac/directory/)')
-st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
+st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.disciplytics.com/).')
 
 # connect to snowflake
 @st.cache_data(show_spinner=False)
