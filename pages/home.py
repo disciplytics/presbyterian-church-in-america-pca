@@ -8,7 +8,7 @@ st.set_page_config(
 
 # title
 st.title('PCA Statistics Analysis :church:', help = 'All data is from [The PCA](https://presbyteryportal.pcanet.org/Report/StatsReport)')
-st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.disciplytics.com/)')
+st.caption('App and analysis is maintained by [Disciplytics, LLC](https://www.disciplytics.com/).')
 
 
 st.markdown('''
